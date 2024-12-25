@@ -13,14 +13,19 @@ function Login() {
   const [error, setError] = React.useState("");
 
   const login = async (data) => {
-    console.log(data);
+    console.log("Current User : ",data);
     setError("");
+
     try {
       const session = await authService.logIn(data);
 
       if (session) {
         const userData = await authService.getCurrentState();
-        if (userData) {
+
+        console.log("Log in current state: ", userData);
+        
+
+        if(userData) {
           dispatch(authLogin(userData));
           navigate("/");
         }
@@ -33,21 +38,21 @@ function Login() {
 
   return (
     <>
-      <div className="flex items-center justify-center w-full ">
+      <div className="flex items-center justify-center w-full sm:py-10 py-20 h-full ">
         <div
-          className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
+          className={`mx-3 sm:mx-auto w-full max-w-lg bg-gray-300 rounded-xl sm:p-5 p-4 py-20 border border-black/10 `}
         >
-          <div className="">
+          {/* <div className="">
             <span className="inline-block w-full max-w-[100px]">
               <Logo width="100%" />
             </span>
-          </div>
+          </div> */}
 
-          <h2 className="text-center text-2xl font-bold leading-tight">
-            Sign in to your account
+          <h2 className="text-center text-2xl font-bold leading-tight mb-4">
+            Log in to your account
           </h2>
 
-          <p>
+          <p className="text-center">
             Don't have any account? &nbsp;
             <Link to="/signup" className="font-medium hover:underline">
               Sign Up
@@ -83,7 +88,13 @@ function Login() {
                 })}
               />
 
-              <Button children="Log in" type="submit" className="w-full" />
+              <div className="text-center">
+                <Button
+                  children="Log in"
+                  type="submit"
+                  className="w-full text-center p-5"
+                />
+              </div>
             </div>
           </form>
         </div>

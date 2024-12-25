@@ -5,6 +5,8 @@ import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
 import { Header, Footer } from "./components";
 import { Outlet } from "react-router-dom";
+// import { Container } from "postcss";
+import {Container} from "./components/index";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -25,15 +27,15 @@ function App() {
 
   return !loading ? (
     <>
-      <div className="min-h-screen bg-gray-100 text-black flex flex-wrap ">
-        <div className="w-full flex flex-col bg-[#e0e1dd]">
-          <Header />
+      <div className="min-h-screen bg-gray-100 text-black flex justify-be">
+        <div className="w-full flex flex-col justify-between bg-[#e0e1dd]">
+            <Header />
 
-          <main className="mt-16">
-            <Outlet />
-          </main>
+            <main className="mt-16 h-full">
+              <Outlet />
+            </main>
 
-          <Footer />
+            <Footer />
         </div>
       </div>
     </>

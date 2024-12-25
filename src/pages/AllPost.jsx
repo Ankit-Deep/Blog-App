@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Container, PostCard } from "../components";
 import service from "../appwrite/config";
+import NoPost from "../components/NoPost";
+import { useSelector } from "react-redux";
 
 function AllPost() {
-  const [posts, setPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
+  console.log("All posts : ", allPosts);
+
+  const userData = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
     service.getAllPosts([]).then((posts) => {
       if (posts) {
-        setPosts(posts.documents);
+        setAllPosts(posts.documents);
+        allPosts.map((post) => {
+          const isAuthor =
+            post && userData ? post.userId === userData.$id : false;
+
+          if (isAuthor) {
+            setAllPosts(posts.documents);
+          } else {
+            setAllPosts([]);
+          }
+        });
       }
     });
   }, []);
@@ -20,15 +35,13 @@ function AllPost() {
   //   }
   // });
 
-  if (posts.length === 0) {
+  if (allPosts.length === 0) {
     return (
-      <div className="w-full py-8 mt-4 text-center bg-red-400">
+      <div className="w-full h-full py-5 text-center bg-[#6b7a8f]">
         <Container>
-          <div className="flex flex-wrap ">
-            <div className="p-2 w-full ">
-              <h1 className="text-2xl font-bold hover:text-gray-500">
-                You don't have any blogs to view.
-              </h1>
+          <div className=" h-full">
+            <div className="sm:w-1/4 w-full">
+              <NoPost />
             </div>
           </div>
         </Container>
@@ -38,11 +51,14 @@ function AllPost() {
 
   return (
     <>
-      <div className="w-full py-5 bg-red-400">
+      <div className="w-full py-5 h-full bg-[#6b7a8f]">
         <Container>
-          <div className="flex flex-wrap border-2 border-black rounded-lg">
-            {posts.map((post) => (
-              <div key={post.$id} className="p-2 w-1/4">
+          <h2 className="px-4 py-1 text-xl font-medium underline my-2">
+            All Posts
+          </h2>
+          <div className="flex flex-wrap rounded-lg">
+            {allPosts.map((post) => (
+              <div key={post.$id} className="p-2 sm:w-1/4">
                 <PostCard {...post} />
               </div>
             ))}

@@ -28,13 +28,13 @@ export class AuthService {
 
       if (user) {
         // Automattically log in the user if he has created the account
-        return this.logIn(email, password);
+        return this.logIn({email, password});
       } else {
         return user;
       }
     } catch (error) {
+      console.error("Can't Create account : ", error);
       throw error;
-      console.error(error);
     }
   }
 
@@ -43,8 +43,8 @@ export class AuthService {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
+      console.error("Login failed : ", error);
       throw error;
-      console.error(error);
     }
   }
 
@@ -53,8 +53,8 @@ export class AuthService {
     try {
       await this.account.deleteSessions();
     } catch (error) {
+      console.error("Can't log out : ", error);
       throw error;
-      console.error(error);
     }
   }
 
@@ -64,8 +64,8 @@ export class AuthService {
       return await this.account.get();
     } catch (error) {
       //    console.log("Appwrite serive :: getCurrentUser :: error", error);
+      console.error("Can't get Current user state: ", error);
       throw error;
-      // console.error(error);
     }
   }
 }

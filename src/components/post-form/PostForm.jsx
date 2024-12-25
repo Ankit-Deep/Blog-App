@@ -4,6 +4,8 @@ import { Input, Select, Button, RTE } from "../index";
 import service from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addPostSlice } from "../../store/postSlice";
 
 export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -17,8 +19,10 @@ export default function PostForm({ post }) {
     });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const userData = useSelector((state) => state.auth.userData);
-  console.log("userdata is ", userData);
+  // console.log("userdata is ", userData);
 
   const submit = async (data) => {
     // If the user wants to edit a post means there is an existing post which user wants to edit/update
@@ -48,26 +52,22 @@ export default function PostForm({ post }) {
       // const file = data.image[0]
       //   ? await service.fileUpload(data.image[0])
       //   : null;
-
       const file = await service.fileUpload(data.image[0]);
+      // console.log("file upload : ", file);
 
       // Creating a new post
       if (file) {
-        console.log("data is : ", data)
+        // console.log("file data is : ", data)
 
         const fileId = file.$id;
         data.featuredImage = fileId;
 
-        // const userId = await authService.getCurrentState();
-        // console.log("user id is ", userId);
-
         const dbPost = await service.createPost({
-          // featuredImage : fileId,
           ...data,
           userId: userData.$id,
         });
 
-        console.log("\ndbPost is ", dbPost);
+        // console.log("\ndbPost is ", dbPost);
 
         // Navigating the user if dbPost has been successfully done
         if (dbPost) {
@@ -103,22 +103,25 @@ export default function PostForm({ post }) {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className="flex flex-wrap border-black border-2 rounded-xl bg-[#778da9]"
+      className="flex flex-wrap sm:flex-row flex-col rounded-xl bg-[#9eb0c8] shadow-xl shadow-slate-700 sm:px-3 px-1 pt-2 pb-5 sm:my-0 my-5"
     >
       {/* This is the left part of the form */}
-      <div className="w-2/3 px-3 border-2 rounded-xl">
+      <div className="sm:w-2/3 w-full px-3 rounded-xl ">
+        <h1 className="px-1 text-xl font-normal underline py-1">Create a new Blog !!</h1>
+
+
         <Input
           label="Title :"
           placeholder="Title"
-          className="mb-4"
+          className="mb-2"
           {...register("title", { required: true })}
         />
 
         <Input
           label="Slug :"
           placeholder="Slug"
-          className="mb-4"
-          {...register("slug", { required: true })}
+          className="mb-2"
+          {...register("slug", { required: false })}
           onInput={(e) => {
             setValue("slug", slugTransform(e.currentTarget.value), {
               shouldValidate: true,
@@ -136,17 +139,17 @@ export default function PostForm({ post }) {
       </div>
 
       {/* This is the right part of the form */}
-      <div className="w-1/3 px-3 border-2 flex flex-col rounded-xl">
+      <div className="sm:w-1/3 w-full px-3 py-2 sm:py-8 flex flex-col rounded-xl">
         <Input
           label="Featured Image :"
           type="file"
-          className="mb-4"
+          className="mb-2"
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
         />
 
         {post && (
-          <div className="w-full mb-4">
+          <div className="w-full">
             <img
               src={service.getFilePreview(post.featuredImage)}
               alt={post.title}

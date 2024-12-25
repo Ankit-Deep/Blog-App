@@ -16,15 +16,21 @@ export default function Post() {
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   useEffect(() => {
+    console.log("Slug : ", slug);
+
     if (slug) {
       service.getPost(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate("/");
+        if (post) {
+          setPost(post);
+          console.log("post : ", post);
+        } else {
+          navigate("/");
+        }
       });
-    } else navigate("/");
+    } else {
+      navigate("/");
+    }
   }, [slug, navigate]);
-
-  console.log("post visible");
 
   const deleteThisPost = () => {
     console.log("function called : ");
@@ -41,32 +47,41 @@ export default function Post() {
   return post ? (
     <div className="py-8">
       <Container>
-        <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
-          <img
-            src={service.getFilePreview(post.featuredImage)}
-            alt={post.title}
-            className="rounded-xl"
-          />
+        <div className="bg-slate-400 shadow-2xl shadow-slate-800 sm:w-full flex flex-col sm:flex-row p-2 sm:p-5 sm:gap-5 rounded-2xl">
+          <div className="w-full sm:w-3/4 flex justify-center mb-4 rounded-xl">
+            <img
+              src={service.getFilePreview(post.featuredImage)}
+              alt={post.title}
+              className="rounded-xl"
+            />
+          </div>
 
-          {isAuthor && (
-            <div className="absolute right-6 top-6 flex gap-2">
-              <Link to={`/edit-post/${post.$id}`} className="">
-                <Button bgColor="bg-green-500" className="mr-3 opacity-55">
-                  Edit
-                </Button>
-              </Link>
-
-              <div className="" onClick={deleteThisPost}>
-                <Button bgColor="bg-red-500" className=" opacity-55">Delete</Button>
+          <div className="flex flex-col justify-between pb-5 px-2 w-full">
+            <div>
+              <div className="w-full p-1">
+                <h1 className="text-2xl font-bold underline">{post.title}</h1>
               </div>
+              <div className="browser-css px-1">{parse(post.content)}</div>
             </div>
-          )}
-        </div>
 
-        <div className="w-full mb-6">
-          <h1 className="text-2xl font-bold">{post.title}</h1>
+            {isAuthor && (
+              <div className=" justify-end gap-2 px-2">
+                <Link to={`/edit-post/${post.$id}`} className="">
+                  <Button bgColor="bg-blue-500" className="mr-3">
+                    Edit
+                  </Button>
+                </Link>
+
+                <div className="" onClick={deleteThisPost}>
+                  <Button bgColor="bg-red-600" className="">
+                    Delete
+                  </Button>
+                </div>
+
+              </div>
+            )}
+          </div>
         </div>
-        <div className="browser-css">{parse(post.content)}</div>
       </Container>
     </div>
   ) : null;

@@ -1,5 +1,5 @@
-import React from "react";
-import { Container, Logo, LogoutBtn } from "../index";
+import React, { useState } from "react";
+import { Button, Container, Logo, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ function Header() {
       // slug means the end part of URL that comes after backslash /
       name: "Home",
       slug: "/",
-      active: true,
+      active: authStatus,
     },
     {
       name: "Login",
@@ -41,47 +41,44 @@ function Header() {
   ];
 
   return (
-    <>
-      <header className="py-3 fixed w-full shadow bg-[#415a77]">
-        <Container>
-          <nav className="flex">
-            {/* Div for just logo */}
-            <div className="mr-4">
-              <Link to="/">
-                <Logo />
-              </Link>
-            </div>
+    <header className="py-3 top-0 fixed z-10 w-full  shadow bg-[#0d1b2a]">
+      <Container>
+        <nav className="flex text-center ">
+          {/* Div for just logo */}
+          <div className=" text-white px-5 text-center">
+            <Link to="/">
+              <Logo />
+            </Link>
+          </div>
 
-            {/* Unordered list for home, about etc */}
-            <ul className="flex ml-auto ">
-              {navItems.map((item) =>
-                // only those items will be shown for which the authStatus is true
+          {/* Unordered list for home, about etc */}
+          <ul className="flex ml-auto ">
+            {navItems.map((item) =>
+              // only those items will be shown for which the authStatus is true
 
-                item.active ? (
-                  // The HTML tag which is repeated, we have to give it a key to make it unique
-
-                  <li key={item.name}>
-                    <button
-                      onClick={() => navigate(item.slug)}
-                      className="inline-block px-6 py-2 rounded-full text-white font-medium hover:bg-blue-200 hover:text-black mx-1"
-                    >
-                      {item.name}
-                    </button>
-                  </li>
-                ) : null
-              )}
-
-              {/* show logout button */}
-              {authStatus && (
-                <li>
-                  <LogoutBtn />
+              item.active ? (
+                // The HTML tag which is repeated, we have to give it a key to make it unique
+                <li key={item.name} className="mx-2">
+                  <button
+                    onClick={() => navigate(item.slug)}
+                    className={`inline-block px-6 py-2 rounded-full text-white font-medium hover:bg-blue-200 hover:text-black mx-1`}
+                  >
+                    {item.name}
+                  </button>
                 </li>
-              )}
-            </ul>
-          </nav>
-        </Container>
-      </header>
-    </>
+              ) : null
+            )}
+
+            {/* show logout button only if the user is authenticated / logged in*/}
+            {authStatus && (
+              <li className="bg-red-600 rounded-full mx-1">
+                <LogoutBtn />
+              </li>
+            )}
+          </ul>
+        </nav>
+      </Container>
+    </header>
   );
 }
 

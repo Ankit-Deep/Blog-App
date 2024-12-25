@@ -13,11 +13,10 @@ export default function Post() {
 
   const userData = useSelector((state) => state.auth.userData);
 
-  const isAuthor = post && userData ? post.userId === userData.$id : false;
-
+  
   useEffect(() => {
     console.log("Slug : ", slug);
-
+    
     if (slug) {
       service.getPost(slug).then((post) => {
         if (post) {
@@ -31,9 +30,12 @@ export default function Post() {
       navigate("/");
     }
   }, [slug, navigate]);
+  
+  const isAuthor = post && userData ? post.userId === userData.$id : false;
+
 
   const deleteThisPost = () => {
-    console.log("function called : ");
+    console.log("Delete func called : ");
     service.deletePost(post.$id).then((status) => {
       console.log(status);
 

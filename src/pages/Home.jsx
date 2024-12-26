@@ -8,20 +8,21 @@ import { Query } from "appwrite";
 
 function Home() {
   const [allPosts, setAllPosts] = useState([]);
-  // const userData = useSelector((state) => state.auth.userData);
-  const userStatus = useSelector((state) => state.auth.status);
+  const userData = useSelector((state) => state.auth.userData);
+  // const userStatus = useSelector((state) => state.auth.status);
+  // console.log("user's data : ", userData);
 
-  console.log("user's status : ", userStatus);
-
-  if (userStatus === true) {
-    useEffect(() => {
-      service.getAllPosts([]).then((posts) => {
+  useEffect(() => {
+    service
+      .getAllPosts([
+        Query.equal("status", "active"),
+      ])
+      .then((posts) => {
         if (posts) {
           setAllPosts(posts.documents);
         }
       });
-    }, [userStatus]);
-  }
+  }, []);
 
   if (allPosts.length === 0) {
     return (
@@ -35,22 +36,24 @@ function Home() {
         </Container>
       </div>
     );
-  } else {
-    return (
-      <div className="w-full h-full py-5 bg-[#6b7a8f]">
-        <Container>
-          <h2 className="px-4 py-1 text-xl font-medium underline my-2">Home</h2>
-          <div className="flex flex-wrap">
-            {allPosts.map((post) => (
-              <div key={post.$id} className="p-2 sm:w-1/4">
-                <PostCard {...post} />
-              </div>
-            ))}
-          </div>
-        </Container>
-      </div>
-    );
   }
+
+  return (
+    <div className="w-full h-full py-5 bg-[#6b7a8f]">
+      <Container>
+        <h2 className="px-4 py-2 text-xl font-medium underline m-2 shadow-2xl rounded-full shadow-slate-900 inline-block">
+          Home
+        </h2>
+        <div className="flex flex-wrap">
+          {allPosts.map((post) => (
+            <div key={post.$id} className="p-2 sm:w-1/4">
+              <PostCard {...post} />
+            </div>
+          ))}
+        </div>
+      </Container>
+    </div>
+  );
 }
 
 export default Home;

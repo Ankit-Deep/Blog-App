@@ -12,26 +12,27 @@ export default function Post() {
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
+  // console.log("userdata :", userData);
 
+  const isAuthor = post && userData ? post.userId === userData.$id : false;
   
   useEffect(() => {
     console.log("Slug : ", slug);
     
     if (slug) {
+
+      // TODO : Only call getpost when there is a active user
       service.getPost(slug).then((post) => {
         if (post) {
           setPost(post);
-          console.log("post : ", post);
-        } else {
-          navigate("/");
+          // console.log("post : ", post);
         }
+        else navigate("/");
       });
     } else {
       navigate("/");
     }
   }, [slug, navigate]);
-  
-  const isAuthor = post && userData ? post.userId === userData.$id : false;
 
 
   const deleteThisPost = () => {
@@ -56,6 +57,22 @@ export default function Post() {
               alt={post.title}
               className="rounded-xl"
             />
+
+            {/* {isAuthor && (
+              <div className="bg-white w-full">
+                <Link to={`/edit-post/${post.$id}`} className="">
+                  <Button bgColor="bg-blue-500" className="mr-3">
+                    Edit
+                  </Button>
+                </Link>
+
+                <div className="" onClick={deleteThisPost}>
+                  <Button bgColor="bg-red-600" className="">
+                    Delete
+                  </Button>
+                </div>
+              </div>
+            )} */}
           </div>
 
           <div className="flex flex-col justify-between pb-5 px-2 w-full">
@@ -67,7 +84,7 @@ export default function Post() {
             </div>
 
             {isAuthor && (
-              <div className=" justify-end gap-2 px-2">
+              <div className="flex justify-end gap-2 px-2">
                 <Link to={`/edit-post/${post.$id}`} className="">
                   <Button bgColor="bg-blue-500" className="mr-3">
                     Edit

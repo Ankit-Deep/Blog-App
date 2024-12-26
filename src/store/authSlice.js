@@ -12,8 +12,8 @@ const authSlice = createSlice({
     reducers: {
         // login & logout are actions
         login : (state, action) => {
-            state.status = true;
-            state.userData = action.payload.userData;
+            state.status = true;   
+            state.userData = action.payload;
             // console.log("user data after signin (Store) : ", state.userData);
         },
 

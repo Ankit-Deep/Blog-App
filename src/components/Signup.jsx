@@ -18,18 +18,48 @@ function Signup() {
     setError("");
 
     try {
+      // Check if there's a current session first
+      try {
+        const currentUser = await authService.getCurrentState();
+        if (currentUser) {
+          await authService.logOut();
+        }
+      } catch (error) {
+        // If getCurrentState fails, it means no user is logged in
+        // We can proceed with account creation
+        console.log("No current session");
+      }
+
       const userAccount = await authService.createAccount(data);
+
       if (userAccount) {
-        console.log("New userAccount details: ". userAccount);
+        console.log("New userAccount details: ", userAccount);
+
+        // Call the Log in function
+        const userLoginData = await authService.logIn({
+          email: data.email,
+          password: data.password,
+        });
+
+        console.log("userLoginData : ", userLoginData);
 
         const userData = await authService.getCurrentState();
 
         console.log("User data just after signin (Database) : ", userData);
 
-        if (userData) dispatch(login(userData));
-        navigate("/");
+        if (userData) {
+          console.log("User data just after signin (Database) 2: ", userData);
+
+          dispatch(() => {
+            login(userData);
+            console.log("successfully logged in to the store");
+            
+          });
+          navigate("/");
+        }
       }
     } catch (error) {
+      console.log("Sign failed : ", error);
       setError(error.message);
     }
   };
@@ -40,8 +70,6 @@ function Signup() {
         <div
           className={`sm:mx-auto mx-3 w-full max-w-lg bg-gray-300 rounded-xl sm:p-10 px-5 py-10 border border-black/10 `}
         >
-
-
           <h2 className="text-center text-2xl font-bold leading-tight my-2">
             Sign up to create an account
           </h2>

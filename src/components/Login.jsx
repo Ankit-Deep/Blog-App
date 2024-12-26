@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { login as authLogin } from "../store/authSlice";
+import { login as authStoreLogin } from "../store/authSlice";
 import { Input, Button, Logo } from "./index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import authService from "../appwrite/auth";
 import { useForm } from "react-hook-form";
 
@@ -12,9 +12,12 @@ function Login() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = React.useState("");
 
+  
   const login = async (data) => {
     console.log("Current User : ",data);
     setError("");
+    
+    console.log("Userdata before: ", user);
 
     try {
       const session = await authService.logIn(data);
@@ -23,19 +26,25 @@ function Login() {
         const userData = await authService.getCurrentState();
 
         console.log("Log in current state: ", userData);
-        
 
-        if(userData) {
-          dispatch(authLogin(userData));
-          navigate("/");
-        }
+        if (userData) {
+          dispatch(authStoreLogin(userData));
+          console.log("Userdata final: ", user);
+
+        };
+        navigate("/");
       }
     } catch (error) {
+      setError(error);
+      console.log("Error : ", error);
       throw error;
-      console.log(error);
     }
   };
 
+  const user = useSelector((state) => state.auth.userData);
+  console.log("Userdata after: ", user);
+
+  
   return (
     <>
       <div className="flex items-center justify-center w-full sm:py-10 py-20 h-full ">

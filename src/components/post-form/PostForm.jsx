@@ -5,9 +5,10 @@ import service from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addPostSlice } from "../../store/postSlice";
+// import { addPostSlice } from "../../store/postSlice";
 
 export default function PostForm({ post }) {
+  
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -39,7 +40,7 @@ export default function PostForm({ post }) {
 
       // Updating the database with new image or file
       const dbPost = await service.updatePost(post.$id, {
-        ...data,
+        ...data,  
         featuredImage: file ? file.$id : undefined,
       });
 
@@ -58,19 +59,18 @@ export default function PostForm({ post }) {
       // Creating a new post
       if (file) {
         // console.log("file data is : ", data)
-
         const fileId = file.$id;
         data.featuredImage = fileId;
 
-        const dbPost = await service.createPost({
+        const dbPost = await service.createPost({          
           ...data,
           userId: userData.$id,
         });
 
-        // console.log("\ndbPost is ", dbPost);
-
+        console.log("\ndbPost is ", dbPost);
         // Navigating the user if dbPost has been successfully done
         if (dbPost) {
+          
           navigate(`/post/${dbPost.$id}`);
         }
       }

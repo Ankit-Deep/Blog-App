@@ -7,7 +7,7 @@ import store from "./store/store.js"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import Home from './pages/Home.jsx'
-import AllPost from "./pages/AllPost.jsx"
+import MyPosts from "./pages/MyPosts.jsx"
 import AddPost from './pages/AddPost.jsx'
 import Signup from "./pages/Signup.jsx"
 import EditPost from "./pages/EditPost.jsx"
@@ -41,18 +41,18 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: "/all-posts",
+        path: "/my-posts",
         element: (
-          <AuthLayout authentication>
+          <AuthLayout authentication={true}>
             {" "}
-            <AllPost/>
+            <MyPosts/>
           </AuthLayout>
         )
       }, 
       {
         path: "/add-post",
         element: (
-          <AuthLayout authentication>
+          <AuthLayout authentication={true}>
             {" "}
             <AddPost/>
           </AuthLayout>
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
       {
         path : "/edit-post/:slug",
         element: (
-          <AuthLayout authentication>
+          <AuthLayout authentication={true}>
             {" "}
             <EditPost/>
           </AuthLayout>

@@ -9,12 +9,13 @@ function LogoutBtn() {
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    navigate("/login");
-    authService
-      .logOut()
-      .then(() => dispatch(logout(), navigate("/")))
-      .catch();
-  };
+    authService.logOut().then(() => {
+      dispatch(logout());
+      console.log("user logged out");
+      navigate("/login");
+    });
+    // .catch();
+  }
 
   return (
     <>

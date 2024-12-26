@@ -3,8 +3,6 @@ import { Button, Container, Logo, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import authService from "../../appwrite/auth";
-// import { logout } from "../../store/authSlice";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
@@ -29,8 +27,8 @@ function Header() {
       active: !authStatus,
     },
     {
-      name: "All Posts",
-      slug: "/all-posts",
+      name: "My Posts",
+      slug: "/my-posts",
       active: authStatus,
     },
     {

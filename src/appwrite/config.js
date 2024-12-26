@@ -16,7 +16,6 @@ export class Services {
 
     this.databases = new Databases(this.client);
     this.storage = new Storage(this.client);
-    
   }
 
   // Creating all file services inside this only like (createFile, updateFile, deleteFile, getFile, getAllFile)
@@ -28,8 +27,10 @@ export class Services {
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
+
         // slug,  // slug will be used as document id everywhere in this project
         // userId=ID.unique(),
+
         {
           // other data that has to be passed
           title,
@@ -38,10 +39,10 @@ export class Services {
           userId,
           status,
         }
-      )
+      );
     } catch (error) {
       console.log("Error is : ", error);
-      
+
       throw error;
     }
   }
@@ -49,68 +50,65 @@ export class Services {
   // update post / document
   async updatePost(slug, { title, content, featuredImage, userId, status }) {
     try {
-        return await this.databases.updateDocument(
-            conf.appwriteDatabaseId,
-            conf.appwriteCollectionId,
-            slug,
-            {
-                title,
-                content, 
-                featuredImage,
-                userId, 
-                status,
-            }
-        )
+      return await this.databases.updateDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        slug,
+        {
+          title,
+          content,
+          featuredImage,
+          userId,
+          status,
+        }
+      );
     } catch (error) {
-        throw error;
-
+      throw error;
     }
   }
-
 
   // Delete post / document
   async deletePost(slug) {
     try {
-        return await this.databases.deleteDocument(
-            conf.appwriteDatabaseId,
-            conf.appwriteCollectionId,
-            slug
-        )
-        return true;
+      return await this.databases.deleteDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        slug
+      );
+      return true;
     } catch (error) {
-        throw error;
-        return false;
+      throw error;
+      return false;
     }
   }
 
-  // get individual post 
+  // get individual post
   async getPost(slug) {
     try {
-        return await this.databases.getDocument(
-            conf.appwriteDatabaseId,
-            conf.appwriteCollectionId,
-            slug
-        )
+      return await this.databases.getDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        slug
+      );
     } catch (error) {
-        throw error;
+      throw error;
     }
-  } 
+  }
 
   // get all posts
-  async getAllPosts(queries = [Query.equal("status", "active")]) {
+  async getAllPosts(queries) {
     try {
-        return this.databases.listDocuments(
-            conf.appwriteDatabaseId,
-            conf.appwriteCollectionId,
-            queries,
-        )
+      return await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        queries
+      );
     } catch (error) {
-        throw error;
+      throw error;
     }
   }
 
   // Shifiting all the file services to this to solve the issue
-
 
   // file upload
   async fileUpload(file) {

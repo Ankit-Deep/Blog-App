@@ -17,7 +17,7 @@ function Button( {
 
     return (
       <button
-        className={` visible sm:px-4 px-6 py-2 rounded-lg ${cursorState} ${hover} ${type} ${bgColor} ${textColor} `}
+        className={`visible sm:px-4 px-6 py-2 rounded-lg ${cursorState} ${hover} ${type} ${bgColor} ${textColor} `}
         {...props}
         onClick={buttonClick}
       >

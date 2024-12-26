@@ -2,28 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Container, PostCard } from "../components";
 import service from "../appwrite/config";
 import NoPost from "../components/NoPost";
+import { Query } from "appwrite";
 import { useSelector } from "react-redux";
 
-function AllPost() {
+function MyPosts() {
   const [allPosts, setAllPosts] = useState([]);
-  console.log("All posts : ", allPosts);
+  // console.log("All posts : ", allPosts);
 
   const userData = useSelector((state) => state.auth.userData);
+  // console.log("My data : ", userData);
+  
 
   useEffect(() => {
-    service.getAllPosts([]).then((posts) => {
+    service.getAllPosts([Query.equal("userId", userData.$id)]).then((posts) => {
       if (posts) {
         setAllPosts(posts.documents);
-        allPosts.map((post) => {
-          const isAuthor =
-            post && userData ? post.userId === userData.$id : false;
-
-          if (isAuthor) {
-            setAllPosts(posts.documents);
-          } else {
-            setAllPosts([]);
-          }
-        });
       }
     });
   }, []);
@@ -53,8 +46,8 @@ function AllPost() {
     <>
       <div className="w-full py-5 h-full bg-[#6b7a8f]">
         <Container>
-          <h2 className="px-4 py-1 text-xl font-medium underline my-2">
-            All Posts
+          <h2 className="px-4 py-2 text-xl font-medium underline m-2 shadow-2xl rounded-full shadow-slate-900 inline-block">
+            My Posts
           </h2>
           <div className="flex flex-wrap rounded-lg">
             {allPosts.map((post) => (
@@ -69,4 +62,4 @@ function AllPost() {
   );
 }
 
-export default AllPost;
+export default MyPosts;

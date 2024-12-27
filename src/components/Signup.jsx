@@ -3,7 +3,7 @@ import authService from "../appwrite/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
 import { Input, Button, Logo } from "./index.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
 function Signup() {
@@ -13,54 +13,59 @@ function Signup() {
 
   const { register, handleSubmit } = useForm();
 
+  const userStatus = useSelector((state) => state.auth.status);
+
+  console.log("Current user status: ", userStatus);
+
   const create = async (data) => {
     console.log("Create account : ", data);
     setError("");
 
-    try {
-      // Check if there's a current session first
+    if (userStatus === false) {
       try {
-        const currentUser = await authService.getCurrentState();
-        if (currentUser) {
-          await authService.logOut();
+        // Check if there's a current session first
+        // try {
+        //   const currentUser = await authService.getCurrentState();
+        //   if (currentUser) {
+        //     await authService.logOut();
+        //   }
+        // } catch (error) {
+          // If getCurrentState fails, it means no user is logged in
+          // We can proceed with account creation
+        //   console.log("No current session");
+        // }
+
+        const userAccount = await authService.createAccount(data);
+
+        if (userAccount) {
+          console.log("New userAccount details: ", userAccount);
+
+          // Call the Log in function
+          const userLoginData = await authService.logIn({
+            email: data.email,
+            password: data.password,
+          });
+
+          console.log("userLoginData : ", userLoginData);
+
+          const userData = await authService.getCurrentState();
+
+          console.log("User data just after signin (Database) : ", userData);
+
+          if (userData) {
+            console.log("User data just after signin (Database) 2: ", userData);
+
+            dispatch(() => {
+              login(userData);
+              console.log("successfully logged in to the store");
+            });
+            navigate("/");
+          }
         }
       } catch (error) {
-        // If getCurrentState fails, it means no user is logged in
-        // We can proceed with account creation
-        console.log("No current session");
+        console.log("Sign failed : ", error);
+        setError(error.message);
       }
-
-      const userAccount = await authService.createAccount(data);
-
-      if (userAccount) {
-        console.log("New userAccount details: ", userAccount);
-
-        // Call the Log in function
-        const userLoginData = await authService.logIn({
-          email: data.email,
-          password: data.password,
-        });
-
-        console.log("userLoginData : ", userLoginData);
-
-        const userData = await authService.getCurrentState();
-
-        console.log("User data just after signin (Database) : ", userData);
-
-        if (userData) {
-          console.log("User data just after signin (Database) 2: ", userData);
-
-          dispatch(() => {
-            login(userData);
-            console.log("successfully logged in to the store");
-            
-          });
-          navigate("/");
-        }
-      }
-    } catch (error) {
-      console.log("Sign failed : ", error);
-      setError(error.message);
     }
   };
 
@@ -76,7 +81,10 @@ function Signup() {
 
           <p className="text-center my-1">
             Already have any account? &nbsp;
-            <Link to="/login" className="font-medium hover:underline">
+            <Link
+              to="/login"
+              className="font-medium hover:underline text-blue-700"
+            >
               Sign in
             </Link>
           </p>

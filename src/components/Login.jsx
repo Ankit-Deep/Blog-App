@@ -12,39 +12,40 @@ function Login() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = React.useState("");
 
-  
+  const userStatus = useSelector((state) => state.auth.status);
+
   const login = async (data) => {
-    console.log("Current User : ",data);
+    console.log("Current User : ", data);
     setError("");
-    
+
     console.log("Userdata before: ", user);
 
-    try {
-      const session = await authService.logIn(data);
+    if (userStatus === false) {
+      try {
+        const session = await authService.logIn(data);
 
-      if (session) {
-        const userData = await authService.getCurrentState();
+        if (session) {
+          const userData = await authService.getCurrentState();
 
-        console.log("Log in current state: ", userData);
+          console.log("Log in current state: ", userData);
 
-        if (userData) {
-          dispatch(authStoreLogin(userData));
-          console.log("Userdata final: ", user);
-
-        };
-        navigate("/");
+          if (userData) {
+            dispatch(authStoreLogin(userData));
+            console.log("Userdata final: ", user);
+          }
+          navigate("/");
+        }
+      } catch (error) {
+        setError(error);
+        console.log("Error : ", error);
+        throw error;
       }
-    } catch (error) {
-      setError(error);
-      console.log("Error : ", error);
-      throw error;
     }
   };
 
   const user = useSelector((state) => state.auth.userData);
   console.log("Userdata after: ", user);
 
-  
   return (
     <>
       <div className="flex items-center justify-center w-full sm:py-10 py-20 h-full ">
@@ -63,7 +64,10 @@ function Login() {
 
           <p className="text-center">
             Don't have any account? &nbsp;
-            <Link to="/signup" className="font-medium hover:underline">
+            <Link
+              to="/signup"
+              className="font-medium hover:underline text-blue-700"
+            >
               Sign Up
             </Link>
           </p>

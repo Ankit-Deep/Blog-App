@@ -17,7 +17,7 @@ export class AuthService {
   }
 
   // async method to sign up / create account for a user
-  async createAccount(data ) {
+  async createAccount(data) {
     try {
       const user = await this.account.create(
         ID.unique(),
@@ -55,7 +55,7 @@ export class AuthService {
   // async method for logging out the user
   async logOut() {
     try {
-      return await this.account.deleteSessions('current');
+      return await this.account.deleteSessions("current");
     } catch (error) {
       console.error("Can't log out : ", error);
       throw error;
@@ -68,6 +68,19 @@ export class AuthService {
       return await this.account.get();
     } catch (error) {
       console.error("Can't get Current user state: ", error);
+      // throw error;
+    }
+  }
+
+  // get identities
+  async getPreference() {
+    try {
+      const prefs = await this.account.getPrefs();
+      if (prefs) {
+        return prefs;
+      }
+    } catch (error) {
+      console.log("Can't get current identity: ", error);
       throw error;
     }
   }

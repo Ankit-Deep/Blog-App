@@ -10,8 +10,7 @@ function MyPosts() {
   // console.log("All posts : ", allPosts);
 
   const userData = useSelector((state) => state.auth.userData);
-  // console.log("My data : ", userData);
-  
+  // console.log("My data : ", userData);  
 
   useEffect(() => {
     service.getAllPosts([Query.equal("userId", userData.$id)]).then((posts) => {
@@ -20,13 +19,6 @@ function MyPosts() {
       }
     });
   }, []);
-
-  // Note : maybe this code will come in the above useEffect
-  // service.getAllPosts([]).then((posts) => {
-  //   if (posts) {
-  //     setPosts(posts.documents);
-  //   }
-  // });
 
   if (allPosts.length === 0) {
     return (

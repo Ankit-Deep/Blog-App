@@ -5,24 +5,37 @@ import { Container, PostCard } from "../components";
 import { useSelector } from "react-redux";
 import NoPost from "../components/NoPost";
 import { Query } from "appwrite";
+import authService from "../appwrite/auth";
 
 function Home() {
   const [allPosts, setAllPosts] = useState([]);
-  const userData = useSelector((state) => state.auth.userData);
-  // const userStatus = useSelector((state) => state.auth.status);
+  // const userData = useSelector((state) => state.auth.userData);
+  const userStatus = useSelector((state) => state.auth.status);
   // console.log("user's data : ", userData);
 
-  useEffect(() => {
-    service
-      .getAllPosts([
-        Query.equal("status", "active"),
-      ])
-      .then((posts) => {
+  if (userStatus) {
+    useEffect(() => {
+      service.getAllPosts([Query.equal("status", "active")]).then((posts) => {
         if (posts) {
           setAllPosts(posts.documents);
+
+          // allPosts.map((post) => {
+          //   if (post.userId) {
+          //     try {
+          //       const currentAuthor = authService.getCurrentState();
+          //       post.userName = currentAuthor.name;
+
+          //     } catch (error) {
+          //       console.error("Error fetching author:", error);
+          //     }
+
+          //     setAllPosts(posts);
+          //   }
+          // })
         }
       });
-  }, []);
+    }, []);
+  }
 
   if (allPosts.length === 0) {
     return (
@@ -47,6 +60,7 @@ function Home() {
         <div className="flex flex-wrap">
           {allPosts.map((post) => (
             <div key={post.$id} className="p-2 sm:w-1/4">
+              {/* {console.log("Current post",post)} */}
               <PostCard {...post} />
             </div>
           ))}

@@ -8,6 +8,7 @@ export class Services {
   client = new Client();
   databases;
   storage;
+  // users;
 
   constructor() {
     this.client
@@ -16,12 +17,21 @@ export class Services {
 
     this.databases = new Databases(this.client);
     this.storage = new Storage(this.client);
+    // this.users = new Users(this.client);
   }
 
   // Creating all file services inside this only like (createFile, updateFile, deleteFile, getFile, getAllFile)
 
   // create post / document
-  async createPost({ title, slug, content, featuredImage, userId, status }) {
+  async createPost({
+    title,
+    slug,
+    content,
+    featuredImage,
+    userId,
+    // userName,
+    status,
+  }) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
@@ -37,6 +47,7 @@ export class Services {
           content,
           featuredImage,
           userId,
+          // userName,
           status,
         }
       );
@@ -48,7 +59,10 @@ export class Services {
   }
 
   // update post / document
-  async updatePost(slug, { title, content, featuredImage, userId, status }) {
+  async updatePost(
+    slug,
+    { title, content, featuredImage, userId, status }
+  ) {
     try {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
@@ -59,6 +73,7 @@ export class Services {
           content,
           featuredImage,
           userId,
+          // userName,
           status,
         }
       );
@@ -136,8 +151,6 @@ export class Services {
     return this.storage.getFilePreview(conf.appwriteBucketId, fileId);
   }
 }
-
-
 
 // Object instance for the above service
 const service = new Services();

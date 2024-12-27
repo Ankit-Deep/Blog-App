@@ -3,9 +3,12 @@ import { Button, Container, Logo, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ProfileIcon from "../profile/ProfileIcon";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
+
+  const userData = useSelector((state) => state.auth.userData);
 
   const navigate = useNavigate();
 
@@ -45,7 +48,7 @@ function Header() {
           {/* Div for just logo */}
           <div className=" text-white px-5 text-center">
             <Link to="/">
-              <Logo />
+              {authStatus && <ProfileIcon userData={userData} />}
             </Link>
           </div>
 

@@ -41,6 +41,7 @@ export default function PostForm({ post }) {
       // Updating the database with new image or file
       const dbPost = await service.updatePost(post.$id, {
         ...data,  
+        // userName : userData.name,
         featuredImage: file ? file.$id : undefined,
       });
 
@@ -65,6 +66,7 @@ export default function PostForm({ post }) {
         const dbPost = await service.createPost({          
           ...data,
           userId: userData.$id,
+          // userName: userData.name,
         });
 
         console.log("\ndbPost is ", dbPost);

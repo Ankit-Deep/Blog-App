@@ -14,10 +14,10 @@ export default function RTE({ name, label, control, defaultValue = "" }) {
           render={({ field: { onChange } }) => (
             <Editor
               initialValue={defaultValue}
+              apiKey="pnn1cu54834pfr7dk73hdkrn1fmqf12pgajx2p1dmyzwdjk5";
               // value={value}
               init={{
-                selector: 'Editor[name="content"]',
-                apiKey: "pnn1cu54834pfr7dk73hdkrn1fmqf12pgajx2p1dmyzwdjk5",
+                // selector: 'Editor[name="content"]',
                 initialValue: defaultValue,
                 max_height: 500,
                 min_height: 400,

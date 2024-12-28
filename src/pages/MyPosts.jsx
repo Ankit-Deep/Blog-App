@@ -37,20 +37,20 @@ function MyPosts() {
   return (
     <>
       <div className="w-full h-full py-5 bg-[#6b7a8f]">
-            <Container>
-              <h2 className="px-3 py-2 text-2xl font-bold  m-2 rounded-sm shadow-slate-900 inline-block">
-                My Posts
-              </h2>
-              <div className="flex flex-wrap">
-                {allPosts.map((post) => (
-                  <div key={post.$id} className="p-3 sm:w-2/6">
-                    {/* {console.log("Current post",post)} */}
-                    <PostCard {...post} />
-                  </div>
-                ))}
+        <Container>
+          <h2 className="px-3 py-2 text-2xl font-bold  m-2 rounded-sm shadow-slate-900 inline-block">
+            My Posts
+          </h2>
+          <div className="flex flex-wrap">
+            {allPosts.map((post) => (
+              <div key={post.$id} className="p-3 sm:w-2/4 md:w-2/6">
+                {/* {console.log("Current post",post)} */}
+                <PostCard {...post} />
               </div>
-            </Container>
+            ))}
           </div>
+        </Container>
+      </div>
     </>
   );
 }

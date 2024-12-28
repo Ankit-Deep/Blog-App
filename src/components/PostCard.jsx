@@ -29,7 +29,7 @@ function PostCard(post) {
   return (
     <>
       <Link to={`/post/${$id}`} className="">
-        <div className="w-full h-[100%] bg-[#6b7a8f] rounded-md shadow-gray-700 shadow-2xl hover:shadow-2xl hover:shadow-slate-900 flex flex-col justify-between hover:p-[2px] p-2 duration-200">
+        <div className="w-full  bg-[#6b7a8f] rounded-md shadow-gray-700 shadow-2xl hover:shadow-3xl hover:shadow-slate-900 flex flex-col justify-between hover:p-[2px] p-2 duration-200">
           <div className="w-full align-text-top">
             {/* <h3>{userData.name} </h3> */}
             <img

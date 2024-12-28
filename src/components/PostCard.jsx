@@ -6,7 +6,7 @@ import { Query } from "appwrite";
 // import { getPostsSlice } from "../store/postSlice";
 
 function PostCard(post) {
-  const { $id, title, featuredImage } = post;
+  const { $id, title, featuredImage, content } = post;
   // console.log("Current post", post);
 
 
@@ -29,17 +29,17 @@ function PostCard(post) {
   return (
     <>
       <Link to={`/post/${$id}`} className="">
-        <div className="w-full h-[100%] rounded-xl p-1 bg-[#a2b4ce] shadow-md  shadow-gray-700 hover:shadow-2xl hover:shadow-slate-700 flex flex-col justify-between hover:p-[2px]">
-          <div className="w-full  mb-4">
+        <div className="w-full h-[100%] bg-[#6b7a8f] rounded-md shadow-gray-700 shadow-2xl hover:shadow-2xl hover:shadow-slate-900 flex flex-col justify-between hover:p-[2px] p-2 duration-200">
+          <div className="w-full align-text-top">
             {/* <h3>{userData.name} </h3> */}
-
             <img
               src={service.getFilePreview(featuredImage)}
               alt={title}
-              className="rounded-xl overflow-hidden"
+              className="rounded-md w-full h-[90%]"
             />
           </div>
-          <h2 className="text-xl font-normal p-2">{title}</h2>
+
+          <h2 className="text-xl px-2 my-6 font-semibold">{title}</h2>
         </div>
       </Link>
     </>

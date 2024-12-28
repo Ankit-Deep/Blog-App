@@ -54,12 +54,12 @@ function Home() {
   return (
     <div className="w-full h-full py-5 bg-[#6b7a8f]">
       <Container>
-        <h2 className="px-4 py-2 text-xl font-medium underline m-2 shadow-2xl rounded-full shadow-slate-900 inline-block">
+        <h2 className="px-3 py-2 text-2xl font-bold  m-2 rounded-sm shadow-slate-900 inline-block">
           Home
         </h2>
         <div className="flex flex-wrap">
           {allPosts.map((post) => (
-            <div key={post.$id} className="p-2 sm:w-1/4">
+            <div key={post.$id} className="p-3 sm:w-2/4 md:w-2/6">
               {/* {console.log("Current post",post)} */}
               <PostCard {...post} />
             </div>

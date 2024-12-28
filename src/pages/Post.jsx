@@ -65,8 +65,9 @@ export default function Post() {
           <div className="flex flex-col justify-between  w-full p-2 sm:p-0 h-64 sm:h-96 ">
             <div className="sm:px-1">
               <div className="w-full">
-                <h1 className="text-2xl font-bold underline">{post.title}</h1>
+                <h1 className="text-2xl font-bold ">{post.title}</h1>
               </div>
+              <hr className="text-black border-2 border-black" />
               <div className="browser-css sm:px-1 py-2">{parse(post.content)}</div>
             </div>
 

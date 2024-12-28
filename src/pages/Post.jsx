@@ -48,7 +48,7 @@ export default function Post() {
     <div className="h-full py-10 sm:py-8 ">
       <Container>
         <div className="min-h-96 bg-slate-400 shadow-2xl shadow-slate-800 sm:w-4/5 flex flex-col sm:flex-row items-center p-2 sm:p-3 gap-3 rounded-xl mx-auto ">
-          <div className="w-full sm:w-3/4 flex  justify-center rounded-xl h-64 sm:h-96">
+          <div className="w-full sm:w-3/4 flex  justify-center rounded-xl h-64 sm:h-96 border border-slate-600">
             {post.featuredImage ? (
               <img
                 src={service.getFilePreview(post.featuredImage)}

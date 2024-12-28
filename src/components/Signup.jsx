@@ -53,16 +53,16 @@ function Signup() {
           console.log("User data just after signin (Database) : ", userData);
 
           if (userData) {
-            console.log("User data just after signin (Database) 2: ", userData);
+            // console.log("User data just after signin (Database) 2: ", userData);
 
             dispatch(login(userData));
-            console.log("successfully logged in to the store");
             navigate("/");
+            // console.log("successfully logged in to the store");
             
           }
         }
       } catch (error) {
-        console.log("Sign failed : ", error);
+        // console.log("Sign failed : ", error);
         setError(error.message);
       }
     }

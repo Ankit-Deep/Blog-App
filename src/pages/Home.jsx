@@ -9,8 +9,7 @@ import authService from "../appwrite/auth";
 
 function Home() {
   const [allPosts, setAllPosts] = useState([]);
-  // const userData = useSelector((state) => state.auth.userData);
-  const userStatus = useSelector((state) => state.auth.status);
+  // const userStatus = useSelector((state) => state.auth.status);
   // console.log("user's data : ", userData);
 
   // if (userStatus) {
@@ -32,6 +31,7 @@ function Home() {
           //     setAllPosts(posts);
           //   }
           // })
+          
         }
       });
     }, []);

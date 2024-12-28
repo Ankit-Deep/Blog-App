@@ -15,9 +15,8 @@ function Login() {
   const userStatus = useSelector((state) => state.auth.status);
 
   const login = async (data) => {
-    console.log("Current User : ", data);
+    // console.log("Current User : ", data);
     setError("");
-    console.log("Userdata before: ", user);
 
     if (!userStatus) {
       try {
@@ -32,30 +31,29 @@ function Login() {
         //   console.log("No current session");
         // }
 
-
         const session = await authService.logIn(data);
 
         if (session) {
           const userData = await authService.getCurrentState();
 
-          console.log("Log in current state: ", userData);
+          // console.log("Log in current state: ", userData);
 
           if (userData) {
             dispatch(authStoreLogin(userData));
-            console.log("Userdata final: ", user);
+            // console.log("Userdata final: ", user);
           }
           navigate("/");
         }
       } catch (error) {
         setError(error);
-        console.log("Error : ", error);
+        // console.log("Error : ", error);
         throw error;
       }
     }
   };
 
   const user = useSelector((state) => state.auth.userData);
-  console.log("Userdata after: ", user);
+  // console.log("Userdata after: ", user);
 
   return (
     <>
@@ -63,11 +61,7 @@ function Login() {
         <div
           className={`mx-3 sm:mx-auto w-full max-w-lg bg-gray-300 rounded-xl sm:p-5 p-4 py-20 border border-black/10 `}
         >
-          {/* <div className="">
-            <span className="inline-block w-full max-w-[100px]">
-              <Logo width="100%" />
-            </span>
-          </div> */}
+
 
           <h2 className="text-center text-2xl font-bold leading-tight mb-4">
             Log in to your account

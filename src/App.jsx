@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import "./App.css";
 import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
 import { Header, Footer, AuthLayout } from "./components";
 import { Outlet } from "react-router-dom";
-// import { Container } from "postcss";
-import { Container } from "./components/index";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -14,7 +11,6 @@ function App() {
 
   const userStatus = useSelector((state) => state.auth.status);
 
-  // if (!userStatus) {
   useEffect(() => {
     authService
       .getCurrentState()
@@ -26,8 +22,6 @@ function App() {
       })
       .finally(() => setLoading(false));
   }, []);
-  // }
-  // setLoading(false);
 
   const userData = useSelector((state) => state.auth.userData);
 

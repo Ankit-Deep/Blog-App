@@ -7,7 +7,6 @@ import { Query } from "appwrite";
 
 function PostCard(post) {
   const { $id, title, featuredImage } = post;
-
   // console.log("Current post", post);
 
 

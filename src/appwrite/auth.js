@@ -37,7 +37,7 @@ export class AuthService {
         return user;
       }
     } catch (error) {
-      console.error("Can't Create account : ", error);
+      // console.error("Can't Create account : ", error);
       throw error.message;
     }
   }
@@ -47,7 +47,7 @@ export class AuthService {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      console.error("Login failed : ", error.message);
+      // console.error("Login failed : ", error.message);
       throw error.message;
     }
   }
@@ -57,7 +57,7 @@ export class AuthService {
     try {
       return await this.account.deleteSessions();
     } catch (error) {
-      console.error("Can't log out : ", error);
+      // console.error("Can't log out : ", error);
       throw error.message;
     }
   }
@@ -67,8 +67,8 @@ export class AuthService {
     try {
       return await this.account.get();
     } catch (error) {
-      console.error("Can't get Current user state: ", error);
-      // throw error;
+      // console.error("Can't get Current user state: ", error);
+      throw error;
     }
   }
 

@@ -93,7 +93,6 @@ export class Services {
       return true;
     } catch (error) {
       throw error;
-      return false;
     }
   }
 

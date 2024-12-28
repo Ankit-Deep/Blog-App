@@ -15,7 +15,7 @@ function App() {
     authService
       .getCurrentState()
       .then((userData) => {
-        console.log("App.jsx userData: ", userData);
+        // console.log("App.jsx userData: ", userData); 
         if (userData) {
           dispatch(login(userData));
         }
@@ -25,7 +25,7 @@ function App() {
 
   const userData = useSelector((state) => state.auth.userData);
 
-  console.log("App.jsx userData 2: ", userData);
+  // console.log("App.jsx userData 2: ", userData);
 
   if (loading) {
     return (

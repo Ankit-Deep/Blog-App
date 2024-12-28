@@ -7,11 +7,11 @@ import ProfileIcon from "../profile/ProfileIcon";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
-  console.log("Auth status in header: ", authStatus);
+  // console.log("Auth status in header: ", authStatus);
   
   
   const userData = useSelector((state) => state.auth.userData);
-  console.log("Auth data in header: ", userData);
+  // console.log("Auth data in header: ", userData);
 
   const navigate = useNavigate();
 

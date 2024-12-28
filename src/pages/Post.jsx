@@ -39,35 +39,41 @@ export default function Post() {
 
       if (status) {
         service.deleteFile(post.featuredImage);
-        navigate("/");
+        navigate("/my-posts");
       }
     });
   };
 
   return post ? (
-    <div className="py-8">
+    <div className="h-full py-10 sm:py-8 ">
       <Container>
-        <div className="bg-slate-400 shadow-2xl shadow-slate-800 sm:w-full flex flex-col sm:flex-row p-2 sm:p-5 sm:gap-5 rounded-2xl">
-          <div className="w-full sm:w-3/4 flex justify-center mb-4 rounded-xl">
-            <img
-              src={service.getFilePreview(post.featuredImage)}
-              alt={post.title}
-              className="rounded-xl"
-            />
+        <div className="min-h-96 bg-slate-400 shadow-2xl shadow-slate-800 sm:w-4/5 flex flex-col sm:flex-row items-center p-2 sm:p-3 gap-3 rounded-xl mx-auto ">
+          <div className="w-full sm:w-3/4 flex  justify-center rounded-xl h-64 sm:h-96">
+            {post.featuredImage ? (
+              <img
+                src={service.getFilePreview(post.featuredImage)}
+                alt={post.title}
+                className="rounded-xl"
+              />
+            ) : (
+              <Link to={`/edit-post/${post.$id}`}>
+                <h2 className="">+ Add Image</h2>
+              </Link>
+            )}
           </div>
 
-          <div className="flex flex-col justify-between pb-5 px-2 w-full">
-            <div>
-              <div className="w-full p-1">
+          <div className="flex flex-col justify-between  w-full p-2 sm:p-0 h-64 sm:h-96 ">
+            <div className="sm:px-1">
+              <div className="w-full">
                 <h1 className="text-2xl font-bold underline">{post.title}</h1>
               </div>
-              <div className="browser-css px-1">{parse(post.content)}</div>
+              <div className="browser-css sm:px-1 py-2">{parse(post.content)}</div>
             </div>
 
             {isAuthor && (
-              <div className="flex justify-end gap-2 px-2">
+              <div className="flex justify-end gap-3">
                 <Link to={`/edit-post/${post.$id}`} className="">
-                  <Button bgColor="bg-blue-500" className="mr-3">
+                  <Button bgColor="bg-blue-500" className="">
                     Edit
                   </Button>
                 </Link>

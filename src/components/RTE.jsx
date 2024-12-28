@@ -18,6 +18,9 @@ export default function RTE({ name, label, control, defaultValue = "" }) {
               // value={value}
               init={{
                 // selector: 'Editor[name="content"]',
+                track: false,         // disables tracking
+                referrerPolicy: 'origin',
+                premium_features: false,
                 initialValue: defaultValue,
                 max_height: 500,
                 min_height: 400,

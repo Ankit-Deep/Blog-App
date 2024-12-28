@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 // import { addPostSlice } from "../../store/postSlice";
 
 export default function PostForm({ post }) {
-  
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -40,7 +39,7 @@ export default function PostForm({ post }) {
 
       // Updating the database with new image or file
       const dbPost = await service.updatePost(post.$id, {
-        ...data,  
+        ...data,
         // userName : userData.name,
         featuredImage: file ? file.$id : undefined,
       });
@@ -51,19 +50,22 @@ export default function PostForm({ post }) {
     } else {
       // If the user wants to create a new post / blog:--
 
-      // const file = data.image[0]
-      //   ? await service.fileUpload(data.image[0])
-      //   : null;
-      const file = await service.fileUpload(data.image[0]);
-      // console.log("file upload : ", file);
+      const file = data.image[0]
+        ? await service.fileUpload(data.image[0])
+        : null;
+
+      // const file = await service.fileUpload(data.image[0]);
+      console.log("file upload : ", file);
 
       // Creating a new post
-      if (file) {
-        // console.log("file data is : ", data)
-        const fileId = file.$id;
+      if (file || !file) {
+        console.log("file data is : ", data);
+
+
+        const fileId = file ? file.$id : null;
         data.featuredImage = fileId;
 
-        const dbPost = await service.createPost({          
+        const dbPost = await service.createPost({
           ...data,
           userId: userData.$id,
           // userName: userData.name,
@@ -72,7 +74,6 @@ export default function PostForm({ post }) {
         console.log("\ndbPost is ", dbPost);
         // Navigating the user if dbPost has been successfully done
         if (dbPost) {
-          
           navigate(`/post/${dbPost.$id}`);
         }
       }
@@ -109,13 +110,15 @@ export default function PostForm({ post }) {
     >
       {/* This is the left part of the form */}
       <div className="sm:w-2/3 w-full px-3 rounded-xl ">
-        <h1 className="px-1 text-xl font-normal underline py-1">Create a new Blog !!</h1>
-
+        <h1 className="px-1 text-xl font-normal underline py-1">
+          Create a new Blog !!
+        </h1>
 
         <Input
           label="Title :"
           placeholder="Title"
           className="mb-2"
+          required
           {...register("title", { required: true })}
         />
 
@@ -123,7 +126,7 @@ export default function PostForm({ post }) {
           label="Slug :"
           placeholder="Slug"
           className="mb-2"
-          {...register("slug", { required: false })}
+          {...register("slug", { required: true })}
           onInput={(e) => {
             setValue("slug", slugTransform(e.currentTarget.value), {
               shouldValidate: true,
@@ -134,6 +137,7 @@ export default function PostForm({ post }) {
         <RTE
           label="Content :"
           name="content"
+          required
           control={control}
           // {...register("content", { required: false })}
           defaultValue={getValues("content")}
@@ -147,7 +151,7 @@ export default function PostForm({ post }) {
           type="file"
           className="mb-2"
           accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register("image", { required: !post })}
+          {...register("image")}
         />
 
         {post && (
@@ -173,8 +177,7 @@ export default function PostForm({ post }) {
           className="w-full"
           hover={post ? "hover:bg-green-600" : "hover:bg-blue-700"}
         >
-          {/* {" "} */}
-          {post ? "Update" : "Submit"}{" "}
+          {post ? "Update" : "Submit"}
         </Button>
       </div>
     </form>

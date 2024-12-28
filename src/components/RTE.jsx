@@ -11,16 +11,16 @@ export default function RTE({ name, label, control, defaultValue = "" }) {
         <Controller
           name={name || "content"}
           control={control}
-          render={({ field: { onChange }}) => (
+          render={({ field: { onChange } }) => (
             <Editor
-              
-              apiKey="pnn1cu54834pfr7dk73hdkrn1fmqf12pgajx2p1dmyzwdjk5"
               initialValue={defaultValue}
               // value={value}
               init={{
+                selector: 'Editor[name="content"]',
+                apiKey: "pnn1cu54834pfr7dk73hdkrn1fmqf12pgajx2p1dmyzwdjk5",
                 initialValue: defaultValue,
-                max_height:500,
-                min_height:400,
+                max_height: 500,
+                min_height: 400,
                 // width:"350",
                 menubar: true,
                 plugins: [

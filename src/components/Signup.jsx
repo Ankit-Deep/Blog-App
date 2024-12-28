@@ -30,8 +30,8 @@ function Signup() {
         //     await authService.logOut();
         //   }
         // } catch (error) {
-          // If getCurrentState fails, it means no user is logged in
-          // We can proceed with account creation
+        // // If getCurrentState fails, it means no user is logged in
+        // // We can proceed with account creation
         //   console.log("No current session");
         // }
 
@@ -55,11 +55,10 @@ function Signup() {
           if (userData) {
             console.log("User data just after signin (Database) 2: ", userData);
 
-            dispatch(() => {
-              login(userData);
-              console.log("successfully logged in to the store");
-            });
+            dispatch(login(userData));
+            console.log("successfully logged in to the store");
             navigate("/");
+            
           }
         }
       } catch (error) {
@@ -127,7 +126,7 @@ function Signup() {
                 {...register("password", {
                   required: true,
                 })}
-              />
+              />  
 
               {/* <Button children={"Create Account"} type="submit" /> */}
 

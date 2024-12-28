@@ -13,7 +13,7 @@ function Home() {
   const userStatus = useSelector((state) => state.auth.status);
   // console.log("user's data : ", userData);
 
-  if (userStatus) {
+  // if (userStatus) {
     useEffect(() => {
       service.getAllPosts([Query.equal("status", "active")]).then((posts) => {
         if (posts) {
@@ -35,7 +35,7 @@ function Home() {
         }
       });
     }, []);
-  }
+  // }
 
   if (allPosts.length === 0) {
     return (

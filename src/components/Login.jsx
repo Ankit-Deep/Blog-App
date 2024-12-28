@@ -17,11 +17,22 @@ function Login() {
   const login = async (data) => {
     console.log("Current User : ", data);
     setError("");
-
     console.log("Userdata before: ", user);
 
-    if (userStatus === false) {
+    if (!userStatus) {
       try {
+        // try {
+        //   const currentUser = authService.getCurrentState();
+        //   if (currentUser) {
+        //     await authService.logOut();
+        //   }
+        // } catch (error) {
+        //   // If getCurrentState fails, it means no user is logged in
+        //   // We can proceed with account creation
+        //   console.log("No current session");
+        // }
+
+
         const session = await authService.logIn(data);
 
         if (session) {

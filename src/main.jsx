@@ -1,82 +1,83 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
-import App from "./App.jsx"
-import "./index.css"
-import { Provider } from "react-redux"
-import store from "./store/store.js"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { Provider } from "react-redux";
+import store from "./store/store.js";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Home from './pages/Home.jsx'
-import MyPosts from "./pages/MyPosts.jsx"
-import AddPost from './pages/AddPost.jsx'
-import Signup from "./pages/Signup.jsx"
-import EditPost from "./pages/EditPost.jsx"
-import Post from "./pages/Post.jsx"
+import Home from "./pages/Home.jsx";
+import MyPosts from "./pages/MyPosts.jsx";
+import AddPost from "./pages/AddPost.jsx";
+import Signup from "./pages/Signup.jsx";
+import EditPost from "./pages/EditPost.jsx";
+import Post from "./pages/Post.jsx";
 
 import { AuthLayout, Login } from "./components/index.js";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element:  <App/>,
+    element: <App />,
     children: [
       {
         path: "/",
-        element: <Home/>
+        element: (
+          <AuthLayout authentication={true}>
+            <Home />,
+          </AuthLayout>
+        ),
       },
       {
         path: "/login",
-        element : (
+        element: (
           <AuthLayout authentication={false}>
-            <Login/>
+            <Login />
           </AuthLayout>
         ),
       },
       {
         path: "/signup",
-        element : (
+        element: (
           <AuthLayout authentication={false}>
-            <Signup/>
+            <Signup />
           </AuthLayout>
-        )
+        ),
       },
       {
         path: "/my-posts",
         element: (
-          <AuthLayout authentication={true}>
+          <AuthLayout authentication>
             {" "}
-            <MyPosts/>
+            <MyPosts />
           </AuthLayout>
-        )
-      }, 
+        ),
+      },
       {
         path: "/add-post",
         element: (
-          <AuthLayout authentication={true}>
+          <AuthLayout authentication>
             {" "}
-            <AddPost/>
+            <AddPost />
           </AuthLayout>
-        )
-      }, 
-      {
-        path : "/edit-post/:slug",
-        element: (
-          <AuthLayout authentication={true}>
-            {" "}
-            <EditPost/>
-          </AuthLayout>
-        )
-      }, 
-      {
-        path : "/post/:slug",
-        element: <Post/>
+        ),
       },
-
-
-
-    ]
-  }
-])
+      {
+        path: "/edit-post/:slug",
+        element: (
+          <AuthLayout authentication>
+            {" "}
+            <EditPost />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/post/:slug",
+        element: <Post />,
+      },
+    ],
+  },
+]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

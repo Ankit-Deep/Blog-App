@@ -7,8 +7,11 @@ import ProfileIcon from "../profile/ProfileIcon";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
-
+  console.log("Auth status in header: ", authStatus);
+  
+  
   const userData = useSelector((state) => state.auth.userData);
+  console.log("Auth data in header: ", userData);
 
   const navigate = useNavigate();
 
@@ -59,7 +62,7 @@ function Header() {
 
               item.active ? (
                 // The HTML tag which is repeated, we have to give it a key to make it unique
-                <li key={item.name} className="mx-2">
+                <li key={item.name} className="mx-2 visible">
                   <button
                     onClick={() => navigate(item.slug)}
                     className={`inline-block px-6 py-2 rounded-full text-white font-medium hover:bg-blue-200 hover:text-black mx-1`}

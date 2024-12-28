@@ -38,27 +38,27 @@ export class AuthService {
       }
     } catch (error) {
       console.error("Can't Create account : ", error);
-      throw error;
+      throw error.message;
     }
   }
 
   // async method to log in a user
-  async logIn({ email, password }) {
+  async logIn({email, password}) {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      console.error("Login failed : ", error);
-      throw error;
+      console.error("Login failed : ", error.message);
+      throw error.message;
     }
   }
 
   // async method for logging out the user
   async logOut() {
     try {
-      return await this.account.deleteSessions("current");
+      return await this.account.deleteSessions();
     } catch (error) {
       console.error("Can't log out : ", error);
-      throw error;
+      throw error.message;
     }
   }
 

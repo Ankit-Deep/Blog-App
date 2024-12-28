@@ -8,7 +8,7 @@ import { Query } from "appwrite";
 function PostCard(post) {
   const { $id, title, featuredImage } = post;
 
-  console.log("Current post", post);
+  // console.log("Current post", post);
 
 
   // useEffect(() => {
@@ -23,9 +23,9 @@ function PostCard(post) {
   }
   // },[])
 
-  if (post) {
-    newFunction();
-  }
+  // if (post) {
+  //   newFunction();
+  // }
 
   return (
     <>

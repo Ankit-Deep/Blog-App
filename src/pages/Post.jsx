@@ -15,25 +15,22 @@ export default function Post() {
   // console.log("userdata :", userData);
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
-  
+
   useEffect(() => {
     console.log("Slug : ", slug);
-    
-    if (slug) {
 
+    if (slug) {
       // TODO : Only call getpost when there is a active user
       service.getPost(slug).then((post) => {
         if (post) {
           setPost(post);
           // console.log("post : ", post);
-        }
-        else navigate("/");
+        } else navigate("/");
       });
     } else {
       navigate("/");
     }
   }, [slug, navigate]);
-
 
   const deleteThisPost = () => {
     console.log("Delete func called : ");
@@ -57,22 +54,6 @@ export default function Post() {
               alt={post.title}
               className="rounded-xl"
             />
-
-            {/* {isAuthor && (
-              <div className="bg-white w-full">
-                <Link to={`/edit-post/${post.$id}`} className="">
-                  <Button bgColor="bg-blue-500" className="mr-3">
-                    Edit
-                  </Button>
-                </Link>
-
-                <div className="" onClick={deleteThisPost}>
-                  <Button bgColor="bg-red-600" className="">
-                    Delete
-                  </Button>
-                </div>
-              </div>
-            )} */}
           </div>
 
           <div className="flex flex-col justify-between pb-5 px-2 w-full">
@@ -96,7 +77,6 @@ export default function Post() {
                     Delete
                   </Button>
                 </div>
-
               </div>
             )}
           </div>

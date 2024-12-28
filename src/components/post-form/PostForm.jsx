@@ -135,7 +135,7 @@ export default function PostForm({ post }) {
           label="Content :"
           name="content"
           control={control}
-          {...register("content", { required: false })}
+          // {...register("content", { required: false })}
           defaultValue={getValues("content")}
         />
       </div>

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
-import { Header, Footer, AuthLayout } from "./components";
+import { Header, Footer, AuthLayout, Loading } from "./components";
 import { Outlet } from "react-router-dom";
+// import Loading from "./components/index";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -31,11 +32,12 @@ function App() {
     return (
       <div>
         <h1>Loading...</h1>
+        {/* <Loading/> */}
       </div>
     );
   } else return (
     <>
-      <div className="min-h-screen bg-gray-100 text-black flex justify-be">
+      <div className="min-h-screen w-screen bg-gray-100 text-black flex justify-be">
         <div className="w-full flex flex-col justify-between bg-[#e0e1dd]">
           <Header />
 

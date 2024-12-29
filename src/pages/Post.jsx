@@ -57,13 +57,13 @@ export default function Post() {
               />
             ) : (
               <Link to={`/edit-post/${post.$id}`}>
-                <h2 className="">+ Add Image</h2>
+                <h2 className="my-32">+ Add Image</h2>
               </Link>
             )}
           </div>
 
           <div className="flex flex-col justify-between  w-full p-2 sm:p-0 h-64 sm:h-96 ">
-            <div className="sm:px-1">
+            <div className="sm:px-1 sm:py-3">
               <div className="w-full">
                 <h1 className="text-2xl font-bold ">{post.title}</h1>
               </div>

@@ -12,6 +12,7 @@ import PostCard from "./PostCard.jsx";
 import PostForm from "./post-form/PostForm.jsx";
 import AuthLayout from './AuthLayout.jsx'
 import Input from "./Input.jsx"
+import Loading from "./Loading.jsx";
 
 export {
   Header,
@@ -27,5 +28,6 @@ export {
   PostCard,
   PostForm,
   AuthLayout,
-  Input
+  Input,
+  Loading
 };

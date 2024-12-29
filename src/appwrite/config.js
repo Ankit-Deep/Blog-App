@@ -1,4 +1,4 @@
-import { Client, Databases, Storage, ID, Query } from "appwrite";
+import { Client, Databases, Storage, ID, Query, Permission, Role } from "appwrite";
 import conf from "../conf/conf";
 
 // **This file is for Database services only (to creae post/ update/ delete etc)
@@ -49,7 +49,10 @@ export class Services {
           userId,
           // userName,
           status,
-        }
+        },
+        [
+          Permission.read(Role.any()),     
+        ]
       );
     } catch (error) {
       console.log("Error is : ", error);

@@ -50,6 +50,8 @@ export default function Post() {
         <div className="sm:min-h-96 sm:w-full bg-slate-400 shadow-2xl shadow-slate-800  flex flex-col md:flex-row  items-center p-2  gap-3 sm:rounded-xl mx-auto ">
           <div className="w-full  flex  justify-center rounded-xl h-64 sm:h-96 border border-slate-600">
             {post.featuredImage ? (
+              console.log("Current post: ", post),
+              
               <img
                 src={service.getFilePreview(post.featuredImage)}
                 alt={post.title}

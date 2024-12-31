@@ -50,9 +50,9 @@ export class Services {
           // userName,
           status,
         },
-        [
-          Permission.read(Role.any()),     
-        ]
+        // [
+        //   Permission.read(Role.any()),     
+        // ]
       );
     } catch (error) {
       console.log("Error is : ", error);

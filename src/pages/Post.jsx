@@ -48,15 +48,15 @@ export default function Post() {
     <div className=" w-full md:py-8 sm:py-5 ">
       <Container>
         <div className="sm:min-h-96 sm:w-full bg-slate-400 shadow-2xl shadow-slate-800  flex flex-col md:flex-row  items-center p-2  gap-3 sm:rounded-xl mx-auto ">
-          <div className="w-full  flex  justify-center rounded-xl h-64 sm:h-96 border border-slate-600">
+          <div className="sm:w-2/4 w-full  flex flex-col  justify-start rounded-xl h-10 sm:h-96 border border-slate-500">
             {post.featuredImage ? (
               (console.log("Current post: ", post),
               (
                 <img
                   src={
-                    service.getFilePreview(post.featuredImage) || 
+                    service.getFilePreview(post.featuredImage) || (
                       <i className="fa-solid fa-image"></i>
-                    
+                    )
                   }
                   alt={post.title}
                   className="rounded-xl w-full"
@@ -64,9 +64,10 @@ export default function Post() {
               ))
             ) : (
               <Link to={`/edit-post/${post.$id}`}>
-                <h2 className="my-32">+ Add Image</h2>
+                <h2 className="m-36">+ Add Image</h2>
               </Link>
             )}
+            <p className="text-sm px-5">*Sorry the images are not being previewed yet !*</p>
           </div>
 
           <div className="flex flex-col justify-between  w-full p-2 sm:p-0 h-64 sm:h-96 ">
@@ -74,7 +75,7 @@ export default function Post() {
               <div className="w-full">
                 <h1 className="text-2xl font-bold ">{post.title}</h1>
               </div>
-              <hr className="text-black border my-2 border-slate-600" />
+              <hr className="text-black border my-2 mr-14 border-slate-600" />
               <div className="browser-css sm:px-1 ">{parse(post.content)}</div>
             </div>
 

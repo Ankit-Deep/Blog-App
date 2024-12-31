@@ -34,9 +34,9 @@ function PostCard(post) {
             {/* <h3>{userData.name} </h3> */}
             <img
               src={
-                service.getFilePreview(featuredImage) || (
-                  <i class="fa-solid fa-image"></i>
-                )
+                service.getFilePreview(featuredImage) || 
+                  <i className="fa-solid fa-image"></i>
+                
               }
               alt={title}
               className="rounded-md w-full h-[90%]"

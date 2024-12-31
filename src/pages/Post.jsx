@@ -54,9 +54,9 @@ export default function Post() {
               (
                 <img
                   src={
-                    service.getFilePreview(post.featuredImage) || (
-                      <i class="fa-solid fa-image"></i>
-                    )
+                    service.getFilePreview(post.featuredImage) || 
+                      <i className="fa-solid fa-image"></i>
+                    
                   }
                   alt={post.title}
                   className="rounded-xl w-full"

@@ -61,7 +61,6 @@ export default function PostForm({ post }) {
       if (file || !file) {
         console.log("file data is : ", data);
 
-
         const fileId = file ? file.$id : null;
         data.featuredImage = fileId;
 

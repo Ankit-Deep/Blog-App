@@ -33,7 +33,11 @@ function PostCard(post) {
           <div className="w-full align-text-top">
             {/* <h3>{userData.name} </h3> */}
             <img
-              src={service.getFilePreview(featuredImage)}
+              src={
+                service.getFilePreview(featuredImage) || (
+                  <i class="fa-solid fa-image"></i>
+                )
+              }
               alt={title}
               className="rounded-md w-full h-[90%]"
             />

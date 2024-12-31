@@ -18,7 +18,7 @@ function Home() {
         if (posts) {
           setAllPosts(posts.documents);
 
-          // allPosts.map((post) => {
+          // all`Posts.map((post) => {
           //   if (post.userId) {
           //     try {
           //       const currentAuthor = authService.getCurrentState();

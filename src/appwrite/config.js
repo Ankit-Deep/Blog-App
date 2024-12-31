@@ -144,13 +144,18 @@ export class Services {
       return true;
     } catch (error) {
       throw error;
-      return false;
+      // return false;
     }
   }
 
   // get file preview
-  getFilePreview(fileId) {
-    return this.storage.getFilePreview(conf.appwriteBucketId, fileId);
+  async getFilePreview(fileId) {
+    try {
+      return this.storage.getFilePreview(conf.appwriteBucketId, fileId);
+      
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

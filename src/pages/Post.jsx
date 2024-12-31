@@ -47,7 +47,7 @@ export default function Post() {
   return post ? (
     <div className="min-h-96 w-full md:py-8 sm:py-5 ">
       <Container>
-        <div className=" min-h-96 sm:w-full bg-slate-400 shadow-2xl shadow-slate-800  flex flex-col md:flex-row  items-center p-2  gap-3 sm:rounded-xl mx-auto ">
+        <div className="` min-h-96 sm:w-full bg-slate-400 shadow-2xl shadow-slate-800  flex flex-col md:flex-row  items-center p-2  gap-3 sm:rounded-xl mx-auto ">
           <div className="sm:w-2/4 w-full  flex flex-col  justify-start rounded-xl h-full sm:h-96 border border-slate-500">
             {post.featuredImage ? (
               <img

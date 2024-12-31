@@ -36,6 +36,8 @@ function Home() {
     }, []);
   // }
 
+  console.log("All posts = ", allPosts);
+
   if (allPosts.length === 0) {
     return (
       <div className="w-full py-5 text-center bg-[#6b7a8f] h-full">

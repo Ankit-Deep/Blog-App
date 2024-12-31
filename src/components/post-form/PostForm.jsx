@@ -22,7 +22,7 @@ export default function PostForm({ post }) {
   const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.auth.userData);
-  // console.log("userdata is ", userData);
+  console.log("userdata is ", userData);
 
   const submit = async (data) => {
     // If the user wants to edit a post means there is an existing post which user wants to edit/update
@@ -40,7 +40,7 @@ export default function PostForm({ post }) {
       // Updating the database with new image or file
       const dbPost = await service.updatePost(post.$id, {
         ...data,
-        // userName : userData.name,
+        userName : userData.name,
         featuredImage: file ? file.$id : undefined,
       });
 
@@ -67,7 +67,7 @@ export default function PostForm({ post }) {
         const dbPost = await service.createPost({
           ...data,
           userId: userData.$id,
-          // userName: userData.name,
+          userName: userData.name,
         });
 
         console.log("\ndbPost is ", dbPost);

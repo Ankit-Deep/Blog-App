@@ -29,7 +29,7 @@ export class Services {
     content,
     featuredImage,
     userId,
-    // userName,
+    userName,
     status,
   }) {
     try {
@@ -37,7 +37,7 @@ export class Services {
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
-
+        
         // slug,  // slug will be used as document id everywhere in this project
         // userId=ID.unique(),
 
@@ -47,7 +47,7 @@ export class Services {
           content,
           featuredImage,
           userId,
-          // userName,
+          userName,
           status,
         },
         // [
@@ -62,7 +62,7 @@ export class Services {
   }
 
   // update post / document
-  async updatePost(slug, { title, content, featuredImage, userId, status }) {
+  async updatePost(slug, { title, content, featuredImage, userId, status, userName }) {
     try {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
@@ -73,7 +73,7 @@ export class Services {
           content,
           featuredImage,
           userId,
-          // userName,
+          userName,
           status,
         }
       );

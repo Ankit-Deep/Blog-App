@@ -47,6 +47,8 @@ function Home() {
         <div className="flex flex-wrap">
           {allPosts.map((post) => (
             <div key={post.$id} className=" p-3 w-full sm:w-2/4 md:w-2/6 min-h-60 md:min-h-60">
+              {/* {console.log("post : ", post)} */}
+              
               <PostCard {...post} />
             </div>
           ))}

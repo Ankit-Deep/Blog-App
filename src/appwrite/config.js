@@ -116,8 +116,8 @@ export class Services {
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         queries
-      ),
-      [Permission.read(Role.any())];
+      )
+      // [Permission.read(Role.any())];
 
 
     } catch (error) {

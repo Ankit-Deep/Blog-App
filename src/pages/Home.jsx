@@ -28,8 +28,8 @@ function Home() {
     return (
       <div className="w-full py-5 text-center bg-[#6b7a8f] h-full">
         <Container>
-          <div className="sm:w-full w-[100px] h-full">
-            <div className=" w-full sm:w-1/4">
+          <div className=" h-full">
+            <div className="sm:w-1/4 w-full">
               <NoPost />
             </div>
           </div>

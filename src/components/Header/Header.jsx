@@ -54,9 +54,9 @@ function Header() {
   return (
     <header className="py-3 top-0 fixed z-10 w-full  shadow bg-[#0d1b2a]">
       <Container>
-        <nav className="flex items-center justify-between text-center max-h-20 mx-5 sm:mx-2">
+        <nav className="flex items-center justify-between text-center max-h-20 mx-5 sm:mx-1">
           {/* Div for just logo */}
-          <div className="">
+          <div className="md:mx-3">
             <Link to="/">
               {authStatus && <ProfileIcon userData={userData} />}
             </Link>

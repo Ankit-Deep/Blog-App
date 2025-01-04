@@ -1,4 +1,12 @@
-import { Client, Databases, Storage, ID, Query, Permission, Role } from "appwrite";
+import {
+  Client,
+  Databases,
+  Storage,
+  ID,
+  Query,
+  Permission,
+  Role,
+} from "appwrite";
 import conf from "../conf/conf";
 
 // **This file is for Database services only (to creae post/ update/ delete etc)
@@ -31,13 +39,16 @@ export class Services {
     userId,
     userName,
     status,
+    likes,
+    likesStatus,
+    likedBy ,
   }) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
-        
+
         // slug,  // slug will be used as document id everywhere in this project
         // userId=ID.unique(),
 
@@ -49,9 +60,12 @@ export class Services {
           userId,
           userName,
           status,
-        },
+          likes: 0,
+          likesStatus,
+          likedBy : [],
+        }
         // [
-        //   Permission.read(Role.any()),     
+        //   Permission.read(Role.any()),
         // ]
       );
     } catch (error) {
@@ -62,7 +76,20 @@ export class Services {
   }
 
   // update post / document
-  async updatePost(slug, { title, content, featuredImage, userId, status, userName }) {
+  async updatePost(
+    slug,
+    {
+      title,
+      content,
+      featuredImage,
+      userId,
+      status,
+      userName,
+      likes,
+      likesStatus,
+      likedBy,
+    }
+  ) {
     try {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
@@ -75,12 +102,26 @@ export class Services {
           userId,
           userName,
           status,
+          likes,
+          likesStatus,
+          likedBy,
         }
       );
     } catch (error) {
       throw error;
     }
   }
+
+  // async updateLikes(slug, likesCount) {
+  //   try {
+  //     slug,
+
+  //   } catch (error) {
+  //     console.log("Can't update post: ", error);
+  //   }
+  // }
+
+
 
   // Delete post / document
   async deletePost(slug) {
@@ -116,10 +157,8 @@ export class Services {
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         queries
-      )
+      );
       // [Permission.read(Role.any())];
-
-
     } catch (error) {
       throw error;
     }
@@ -152,7 +191,6 @@ export class Services {
   async getFilePreview(fileId) {
     try {
       return this.storage.getFilePreview(conf.appwriteBucketId, fileId);
-      
     } catch (error) {
       throw error;
     }

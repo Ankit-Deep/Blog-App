@@ -67,21 +67,16 @@ export default function Post() {
           <div className="flex flex-col justify-between  w-full p-2 sm:p-0 h-64 sm:h-96 ">
             <div className="sm:px-1 sm:py-2 ">
               <div className="w-full">
-                
                 {/* User profile */}
                 <div className=" flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full ">
-                    <img
-                      srcSet="../../src/assets/userIcon2.png"
-                      alt=""
-                      srcset=""
-                    />
+                    <img srcset="../../src/assets/userIcon2.png" alt="" />
                   </span>
                   <h3
                     className="font-medium text-sm hover:underline"
-                    // title={post.userName}
+                    // title={userName}
                   >
-                    {post.userName}{" "}
+                    {post.userName}
                   </h3>
                 </div>
                 <h1 className="text-2xl py-2 font-bold ">{post.title}</h1>

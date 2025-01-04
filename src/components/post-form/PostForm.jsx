@@ -72,6 +72,7 @@ export default function PostForm({ post }) {
 
         console.log("\ndbPost is ", dbPost);
         // Navigating the user if dbPost has been successfully done
+        
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }

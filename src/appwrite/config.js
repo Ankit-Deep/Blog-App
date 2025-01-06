@@ -40,7 +40,7 @@ export class Services {
     userName,
     status,
     likes,
-    likesStatus,
+    // likesStatus,
     likedBy ,
   }) {
     try {
@@ -61,7 +61,7 @@ export class Services {
           userName,
           status,
           likes: 0,
-          likesStatus,
+          // likesStatus,
           likedBy : [],
         }
         // [
@@ -86,7 +86,7 @@ export class Services {
       status,
       userName,
       likes,
-      likesStatus,
+      // likesStatus,
       likedBy,
     }
   ) {
@@ -103,7 +103,7 @@ export class Services {
           userName,
           status,
           likes,
-          likesStatus,
+          // likesStatus,
           likedBy,
         }
       );
@@ -115,13 +115,10 @@ export class Services {
   // async updateLikes(slug, likesCount) {
   //   try {
   //     slug,
-
   //   } catch (error) {
   //     console.log("Can't update post: ", error);
   //   }
   // }
-
-
 
   // Delete post / document
   async deletePost(slug) {

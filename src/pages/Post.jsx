@@ -16,22 +16,23 @@ export default function Post() {
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
-  useEffect(() => {
+  useEffect( () => {
     // console.log("Slug : ", slug);
-
     if (slug) {
       // TODO : Only call getpost when there is a active user
-      service.getPost(slug).then((post) => {
+       service.getPost(slug).then((post) => {
         if (post) {
           setPost(post);
-        } else navigate("/");
+        } else {
+          navigate("/");
+        }
       });
     } else {
       navigate("/");
     }
   }, [slug, navigate]);
 
-  // console.log("Individual post: ", post);
+  console.log("Individual post: ", post);
   
 
   const deleteThisPost = () => {
@@ -52,17 +53,22 @@ export default function Post() {
         <div className="` min-h-96 sm:w-full bg-slate-400 shadow-2xl shadow-slate-800  flex flex-col md:flex-row  items-center p-2  gap-3 sm:rounded-xl mx-auto ">
           <div className="sm:w-2/4 w-full  flex flex-col  justify-start rounded-xl h-full sm:h-96 border border-slate-500">
             {post.featuredImage ? (
+              
               <img
+
                 srcSet={service.getFilePreview(post.featuredImage)}
                 alt={post.title}
                 className="rounded-xl w-full"
               />
+              
             ) : (
               <p className="text-sm px-5">
                 *Sorry the images are not being previewed yet !*
               </p>
             )}
           </div>
+
+          
 
           <div className="flex flex-col justify-between  w-full p-2 sm:p-0 h-64 sm:h-96 ">
             <div className="sm:px-1 sm:py-2 ">

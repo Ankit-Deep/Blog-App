@@ -27,11 +27,10 @@ export default function Post() {
         if (post) {
           setPost(post);
 
-          console.log("Bucket id : ", conf.appwriteBucketId);  
+          // console.log("Bucket id : ", conf.appwriteBucketId);  
           const url = service.getFileImagePreview(post.featuredImage);
+
           setImgUrl(url);
-          console.log("img url : ", url);
-          
         } else {
           navigate("/");
         }
@@ -67,7 +66,6 @@ export default function Post() {
             {post.featuredImage ? (
               <img
                 src={imgUrl}
-                // src={service.getFilePreview(post.featuredImage)}
                 alt={post.title}
                 className="rounded-xl w-full h-full"
               />

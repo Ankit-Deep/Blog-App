@@ -50,18 +50,18 @@ export default function PostForm({ post }) {
     } else {
       // If the user wants to create a new post / blog:--
 
-      const file = data.image[0]
-        ? await service.fileUpload(data.image[0])
-        : null;
+      // const file = data.image[0]
+      //   ? await service.fileUpload(data.image[0])
+        // : null;
 
-      // const file = await service.fileUpload(data.image[0]);
-      console.log("file upload : ", file);
+      const file = await service.fileUpload(data.image[0]);
+      console.log("file / image upload : ", file);
 
       // Creating a new post
-      if (file || !file) {
+      if (file) {
         console.log("file data is : ", data);
 
-        const fileId = file ? file.$id : null;
+        const fileId = file.$id;
         data.featuredImage = fileId;
 
         const dbPost = await service.createPost({

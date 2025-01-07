@@ -22,6 +22,8 @@ function PostCard({
 }) {
   // const { $id, title, featuredImage, content, userName, likes } = post;
   // console.log('$id ', $id);
+  // console.log('username', userName);
+
 
   const [like, setLike] = useState(false);
   const [likesCount, setLikesCount] = useState(likes);
@@ -91,7 +93,6 @@ function PostCard({
               setLike(false);
             }
           });
-
           // console.log("post", post);
         }
       } catch (error) {
@@ -105,7 +106,7 @@ function PostCard({
   return (
     <>
       <Link to={`/post/${$id}`} className="">
-        <div className="border border-black w-full h-full bg-[#8191a7] rounded-lg shadow-gray-700 shadow-2xl hover:shadow-2xl hover:shadow-gray-950 flex flex-col p-4 hover:p-[20px] duration-200 ">
+        <div className=" w-full h-full bg-[#8191a7] rounded-lg shadow-gray-700 shadow-2xl hover:shadow-2xl hover:shadow-gray-950 flex flex-col gap-3 p-4 hover:p-[20px] duration-200 ">
 
           {/* User profile starts */}
           <div className=" flex items-center gap-2">
@@ -121,22 +122,23 @@ function PostCard({
           </div>
           {/* User profile ends */}
 
-          {/* <div className="w-full align-text-top">
+          <div className=" w-full min-h-56">
             <img
-              srcSet={
+              src={
                 service.getFilePreview(featuredImage) 
               }
               alt={title}
               className="rounded-md w-full h-[90%]"
             />
-          </div> */}
+          </div>
 
-          <div className=" flex flex-col px-1 mb-6 h-full">
-            <h2 className="text-xl my-5 font-semibold">{title}</h2>
+          <div className=" flex flex-col gap-3 sm:px-1 px-[2px] h-full">
+            <h2 className="text-xl  font-semibold">{title}</h2>
 
             <p className="">{parse(content)}</p>
           </div>
-          <div className=" h-8 object-center flex items-center justify-between gap-2 px-1 ">
+
+          <div className=" h-8 object-center flex items-center justify-between sm:px-[5px] px-[3px] ">
             <div className="flex gap-2">
               <button
                 type="button"
@@ -149,13 +151,13 @@ function PostCard({
               >
                 {like === true ? (
                   <img
-                    srcSet="/assets/likedIconPink.png"
+                    src="/assets/likedIconPink.png"
                     className="w-5 h-5"
                     alt=""
                   />
                 ) : (
                   <img
-                    srcset="/assets/likeIcon.png"
+                    src="/assets/likeIcon.png"
                     className="w-5 h-5 "
                     alt=""
                   />
@@ -177,8 +179,8 @@ function PostCard({
                 }}
               >
                 <img
-                  className="w-5 h-5"
                   src="/assets/bookmark_icon.png"
+                  className="w-5 h-5"
                   alt=""
                 />
               </button>

@@ -41,7 +41,7 @@ export class Services {
     status,
     likes,
     // likesStatus,
-    likedBy ,
+    likedBy,
   }) {
     try {
       return await this.databases.createDocument(
@@ -62,7 +62,7 @@ export class Services {
           status,
           likes: 0,
           // likesStatus,
-          likedBy : [],
+          likedBy: [],
         }
         // [
         //   Permission.read(Role.any()),
@@ -159,7 +159,7 @@ export class Services {
     } catch (error) {
       throw error;
     }
-  }
+  } 
 
   // Shifiting all the file services to this to solve the issue
 
@@ -185,12 +185,8 @@ export class Services {
   }
 
   // get file preview
-  async getFilePreview(fileId) {
-    try {
-      return this.storage.getFilePreview(conf.appwriteBucketId, fileId);
-    } catch (error) {
-      throw error;
-    }
+  getFilePreview(fileId) {
+    return this.storage.getFilePreview(conf.appwriteBucketId, fileId);
   }
 }
 

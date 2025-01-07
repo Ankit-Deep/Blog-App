@@ -4,6 +4,7 @@ import service from "../appwrite/config";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import conf from "../conf/conf";
 // import fileService from "../appwrite/file";
 
 export default function Post() {
@@ -26,8 +27,11 @@ export default function Post() {
         if (post) {
           setPost(post);
 
-          setImgUrl(service.getFilePreview(post.featuredImage));
-          console.log("img url : ", imgUrl);
+          console.log("Bucket id : ", conf.appwriteBucketId);  
+
+          const url = service.getFilePreview(post.featuredImage);
+          setImgUrl(url);
+          console.log("img url : ", url);
           
         } else {
           navigate("/");

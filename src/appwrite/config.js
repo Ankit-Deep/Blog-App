@@ -168,7 +168,7 @@ export class Services {
     try {
       return this.storage.createFile(conf.appwriteBucketId, ID.unique(), file);
       
-    } catch (error) {``
+    } catch (error) {
       throw error;
     }
   }

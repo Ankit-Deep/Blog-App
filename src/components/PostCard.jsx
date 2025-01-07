@@ -122,11 +122,11 @@ function PostCard({
           </div>
           {/* User profile ends */}
 
-          <div className=" w-full min-h-56">
+          <div className=" w-full h-full">
             <img
               src={
                 service.getFilePreview(featuredImage) 
-              }
+              }              
               alt={title}
               className="rounded-md w-full h-[90%]"
             />

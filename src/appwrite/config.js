@@ -159,14 +159,16 @@ export class Services {
     } catch (error) {
       throw error;
     }
-  } 
+  }
 
   // Shifiting all the file services to this to solve the issue
 
   // file upload
   async fileUpload(file) {
     try {
-      return this.storage.createFile(conf.appwriteBucketId, ID.unique(), file);
+      return this.storage.createFile(conf.appwriteBucketId, ID.unique(), file, [
+        "role:all",
+      ]);
     } catch (error) {
       throw error;
     }

@@ -16,6 +16,8 @@ export default function Post() {
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
+  const [imgUrl, setImgUrl] = useState();
+
   useEffect(() => {
     // console.log("Slug : ", slug);
     if (slug) {
@@ -23,6 +25,10 @@ export default function Post() {
       service.getPost(slug).then((post) => {
         if (post) {
           setPost(post);
+
+          setImgUrl(service.getFilePreview(post.featuredImage));
+          console.log("img url : ", imgUrl);
+          
         } else {
           navigate("/");
         }
@@ -33,6 +39,8 @@ export default function Post() {
   }, [slug, navigate]);
 
   console.log("Individual post : ", post);
+
+  
 
   const deleteThisPost = () => {
     console.log("Delete func called : ");
@@ -55,7 +63,8 @@ export default function Post() {
           
             {post.featuredImage ? (
               <img
-                src={service.getFilePreview(post.featuredImage)}
+                src={imgUrl}
+                // src={service.getFilePreview(post.featuredImage)}
                 alt={post.title}
                 className="rounded-xl w-full h-full"
               />

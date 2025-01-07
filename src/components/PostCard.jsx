@@ -124,9 +124,9 @@ function PostCard({
 
           <div className=" w-full h-full">
             <img
-              src={
-                service.getFilePreview(featuredImage) 
-              }              
+              src={`
+                ${service.getFilePreview(featuredImage) }
+              `}              
               alt={title}
               className="rounded-md w-full h-[90%]"
             />

@@ -107,7 +107,6 @@ function PostCard({
     <>
       <Link to={`/post/${$id}`} className="">
         <div className=" w-full h-full bg-[#8191a7] rounded-lg shadow-gray-700 shadow-2xl hover:shadow-2xl hover:shadow-gray-950 flex flex-col gap-3 p-4 hover:p-[20px] duration-200 ">
-
           {/* User profile starts */}
           <div className=" flex items-center gap-2">
             <span className="w-6 h-6 rounded-full ">
@@ -125,8 +124,8 @@ function PostCard({
           <div className=" w-full h-full">
             <img
               src={`
-                ${service.getFilePreview(featuredImage) }
-              `}              
+                ${service.getFileImagePreview(featuredImage)}
+              `}
               alt={title}
               className="rounded-md w-full h-[90%]"
             />
@@ -156,11 +155,7 @@ function PostCard({
                     alt=""
                   />
                 ) : (
-                  <img
-                    src="/assets/likeIcon.png"
-                    className="w-5 h-5 "
-                    alt=""
-                  />
+                  <img src="/assets/likeIcon.png" className="w-5 h-5 " alt="" />
                 )}
               </button>
               <p>{likesCount}</p>

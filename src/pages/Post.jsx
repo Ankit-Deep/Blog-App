@@ -27,7 +27,7 @@ export default function Post() {
         if (post) {
           setPost(post);
 
-          // console.log("Bucket id : ", conf.appwriteBucketId);  
+          console.log("Bucket id : ", conf.appwriteBucketId);  
           const url = service.getFileImagePreview(post.featuredImage);
           setImgUrl(url);
           console.log("img url : ", url);

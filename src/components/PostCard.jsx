@@ -122,13 +122,16 @@ function PostCard({
           {/* User profile ends */}
 
           <div className=" w-full h-full">
-            <img
-              src={`
-                ${service.getFileImagePreview(featuredImage)}
-              `}
-              alt={title}
-              className="rounded-md w-full h-[90%]"
-            />
+            {featuredImage ? (
+              <img
+                src={service.getFileImagePreview(featuredImage)}
+                alt={title}
+                className="rounded w-full h-full"
+              />
+            ) : // <p className="text-sm px-5">
+            //   *Sorry the images are not being previewed yet !*
+            // </p>
+            null}
           </div>
 
           <div className=" flex flex-col gap-3 sm:px-1 px-[2px] h-full">

@@ -16,7 +16,7 @@ function App() {
     authService
       .getCurrentState()
       .then((userData) => {
-        // console.log("App.jsx userData: ", userData); 
+        // console.log("App.jsx userData: ", userData);
         if (userData) {
           dispatch(login(userData));
         }
@@ -35,21 +35,22 @@ function App() {
         {/* <Loading/> */}
       </div>
     );
-  } else return (
-    <>
-      <div className="min-h-screen w-screen bg-gray-100 text-black flex justify-be">
-        <div className="w-full flex flex-col justify-between bg-[#e0e1dd]">
-          <Header />
+  } else
+    return (
+      <>
+        <div className="min-h-screen h-screen bg-gray-100 text-black flex flex-col content-between">
+          <div className="w-full flex flex-col bg-slate-400 ">
+            <Header />
 
-          <main className="mt-16 h-full">
-            <Outlet />
-          </main>
+            <main className="">
+              <Outlet />
+            </main>
 
-          <Footer />
+            <Footer />
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
 }
 
 export default App;

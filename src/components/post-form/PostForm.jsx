@@ -34,13 +34,13 @@ export default function PostForm({ post }) {
 
       // Deleting the old image
       if (file) {
-        service.deleteFile(post.featuredImage);
+        await service.deleteFile(post.featuredImage);
       }
 
       // Updating the database with new image or file
       const dbPost = await service.updatePost(post.$id, {
         ...data,
-        userName : userData.name,
+        userName: userData.name,
         featuredImage: file ? file.$id : undefined,
       });
 
@@ -52,7 +52,7 @@ export default function PostForm({ post }) {
 
       // const file = data.image[0]
       //   ? await service.fileUpload(data.image[0])
-        // : null;
+      // : null;
 
       const file = await service.fileUpload(data.image[0]);
       console.log("file / image upload : ", file);
@@ -72,7 +72,7 @@ export default function PostForm({ post }) {
 
         console.log("\ndbPost is ", dbPost);
         // Navigating the user if dbPost has been successfully done
-        
+
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
@@ -106,34 +106,64 @@ export default function PostForm({ post }) {
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className="flex flex-wrap sm:flex-row flex-col rounded-xl bg-[#9eb0c8] shadow-xl shadow-slate-700 sm:px-3 px-1 pt-2 pb-5 sm:my-0 my-5"
+      className=" flex flex-wrap flex-col bg-slate-400 sm:my-16 mt-11 px-3"
     >
       {/* This is the left part of the form */}
-      <div className="sm:w-2/3 w-full px-3 rounded-xl ">
-        <h1 className="px-1 text-xl font-normal underline py-1">
-          Create a new Blog !!
-        </h1>
+      <h1 className=" text-xl font-medium py-1">Create a new Blog...</h1>
+      <div className=" w-full rounded-xl flex flex-col md:flex-row gap-2">
+        <div className=" md:w-4/6">
+          <Input
+            label="Title :"
+            placeholder="Title"
+            className="mb-2"
+            required
+            {...register("title", { required: true })}
+          />
 
-        <Input
-          label="Title :"
-          placeholder="Title"
-          className="mb-2"
-          required
-          {...register("title", { required: true })}
-        />
+          <Input
+            label="Slug :"
+            placeholder="Slug"
+            className="mb-2"
+            {...register("slug", { required: true })}
+            onInput={(e) => {
+              setValue("slug", slugTransform(e.currentTarget.value), {
+                shouldValidate: true,
+              });
+            }}
+          />
+        </div>
 
-        <Input
-          label="Slug :"
-          placeholder="Slug"
-          className="mb-2"
-          {...register("slug", { required: true })}
-          onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value), {
-              shouldValidate: true,
-            });
-          }}
-        />
+        <div className=" md:w-2/6 flex flex-col justify-between gap-2">
+          <Input
+            label="Featured Image :"
+            type="file"
+            className=""
+            accept="image/png, image/jpg, image/jpeg, image/gif"
+            {...register("image")}
+          />
 
+          {post && (
+            <div className="w-full">
+              <img
+                src={service.getFileImagePreview(post.featuredImage)}
+                alt={post.title}
+                className="rounded"
+              />
+            </div>
+          )}
+
+          <Select
+            options={["active", "inactive"]}
+            label="Status"
+            className="mb-3"
+            {...register("status", { required: true })}
+          />
+        </div>
+        
+      </div>
+
+      {/* This is the right part of the form */}
+      <div className=" w-full py-2 flex flex-col gap-5 ">
         <RTE
           label="Content :"
           name="content"
@@ -141,34 +171,6 @@ export default function PostForm({ post }) {
           control={control}
           // {...register("content", { required: false })}
           defaultValue={getValues("content")}
-        />
-      </div>
-
-      {/* This is the right part of the form */}
-      <div className="sm:w-1/3 w-full px-3 py-2 sm:py-8 flex flex-col rounded-xl">
-        <Input
-          label="Featured Image :"
-          type="file"
-          className="mb-2"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register("image")}
-        />
-
-        {post && (
-          <div className="w-full">
-            <img
-              src={service.getFilePreview(post.featuredImage)}
-              alt={post.title}
-              className="rounded-lg"
-            />
-          </div>
-        )}
-
-        <Select
-          options={["active", "inactive"]}
-          label="Status"
-          className="mb-4"
-          {...register("status", { required: true })}
         />
 
         <Button

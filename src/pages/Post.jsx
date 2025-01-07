@@ -27,7 +27,7 @@ export default function Post() {
         if (post) {
           setPost(post);
 
-          // console.log("Bucket id : ", conf.appwriteBucketId);  
+          // console.log("Bucket id : ", conf.appwriteBucketId);
           const url = service.getFileImagePreview(post.featuredImage);
 
           setImgUrl(url);
@@ -42,8 +42,6 @@ export default function Post() {
 
   console.log("Individual post : ", post);
 
-  
-
   const deleteThisPost = () => {
     console.log("Delete func called : ");
     service.deletePost(post.$id).then((status) => {
@@ -55,48 +53,51 @@ export default function Post() {
       }
     });
   };
-  
 
   return post ? (
-    <div className="min-h-96 w-full md:py-8 sm:py-5 ">
+    <div className="bg-slate-400 sm:my-20 mt-20  ">
       <Container>
-        <div className="` min-h-96 sm:w-full bg-slate-400 shadow-2xl shadow-slate-800  flex flex-col md:flex-row  items-center p-2  gap-3 sm:rounded-xl mx-auto ">
-          <div className=" w-full flex flex-col  justify-start rounded-xl h-full sm:h-96  border-slate-500">
-          
+        <div className="border sm:w-full md:max-w-3xl p-5 bg-slate-400  shadow-slate-800 items-center sm:rounded-xl mx-auto">
+          {/* Title & Blog's author name */}
+          <div className="flex flex-col gap-6 py-3">
+            <h1 className="text-3xl font-bold ">{post.title}</h1>
+
+            <div className="w-full ">
+              {/* User profile starts */}
+              <div
+                className="w-fit flex items-center gap-2 cursor-pointer"
+                title={post.userName}
+              >
+                <span className="w-7 h-7 rounded-full ">
+                  <img srcset="/assets/userIcon2.png" alt="" />
+                </span>
+                <h3 className="font-medium text-base hover:underline ">
+                  {post.userName}
+                </h3>
+              </div>
+              {/* User profile ends */}
+            </div>
+          </div>
+          {/* Title & Blog's author name */}
+
+          <div className="my-2">
             {post.featuredImage ? (
               <img
                 src={imgUrl}
                 alt={post.title}
-                className="rounded-xl w-full h-full"
+                className="rounded w-full h-full"
               />
             ) : (
-              <p className="text-sm px-5">
-                *Sorry the images are not being previewed yet !*
-              </p>
+              // <p className="text-sm px-5">
+              //   *Sorry the images are not being previewed yet !*
+              // </p>
+              null
             )}
           </div>
 
-          <div className=" flex flex-col justify-between  w-full p-2 sm:p-0 h-64 sm:h-96 ">
-            <div className="sm:px-1 sm:py-2 ">
-              <div className="w-full">
-                {/* User profile starts */}
-                <div
-                  className="w-fit flex items-center gap-2 cursor-pointer"
-                  title={post.userName}
-                >
-                  <span className="w-6 h-6 rounded-full ">
-                    <img srcset="/assets/userIcon2.png" alt="" />
-                  </span>
-                  <h3 className="font-medium text-base hover:underline ">
-                    {post.userName}
-                  </h3>
-                </div>
-                {/* User profile ends */}
-              </div>
-
-              <h1 className="text-2xl py-2 px-1 font-bold ">{post.title}</h1>
-              {/* <hr className="text-black border my-2  border-slate-600" /> */}
-              <div className="px-1 ">{parse(post.content)}</div>
+          <div className="flex flex-col justify-between  w-full h-64 sm:h-96 ">
+            <div className=" ">
+              <div className=" ">{parse(post.content)}</div>
             </div>
 
             {/* like, bookmark , edit and delete */}

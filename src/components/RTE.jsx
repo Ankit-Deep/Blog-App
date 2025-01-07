@@ -6,7 +6,7 @@ export default function RTE({ name, label, control, defaultValue = "" }) {
   return (
     <>
       <div className="w-full ">
-        {label && <label className="inline-block p-1 text-lg ">{label} </label>}
+        {label && <label className="inline-block py-2 px-1 text-lg ">{label} </label>}
 
         <Controller
           name={name || "content"}
@@ -22,8 +22,8 @@ export default function RTE({ name, label, control, defaultValue = "" }) {
                 referrerPolicy: 'origin',
                 premium_features: false,
                 initialValue: defaultValue,
-                max_height: 500,
-                min_height: 400,
+                max_height: 600,
+                min_height: 600,
                 // width:"350",
                 menubar: true,
                 plugins: [

@@ -19,7 +19,7 @@ function Header() {
       // slug means the end part of URL that comes after backslash /
       name: "Home",
       slug: "/",
-      active: authStatus,
+      active: !authStatus || authStatus,
     },
     {
       name: "Login",
@@ -55,9 +55,11 @@ function Header() {
       <Container>
         <nav className="flex items-center justify-between text-center max-h-20  sm:mx-1">
           {/* Div for just logo */}
-          <div className="md:mx-3">
+          <div className="md:mx-2">
             <Link to="/">
               {authStatus && <ProfileIcon userData={userData} />}
+
+              { !authStatus && <img src="/Blog app favicon/android-chrome-512x512.png" className="w-8"/>}
             </Link>
           </div>
 

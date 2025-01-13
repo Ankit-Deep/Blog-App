@@ -30,8 +30,11 @@ function PostCard({
   const [users, setUsers] = useState([]);
 
   // console.log("users : ", users);
-  const userData = useSelector((state) => state.auth.userData);
-  // console.log("Userdata ", userData);
+  const currentUser = useSelector((state) => state.auth);
+  // const userStatus = useSelector((state) => state.auth.status);
+  
+  // console.log("Userdata ", user);
+  // console.log("Userstatus ", userStatus);
 
   const likeButton = async (e) => {
     setUsers(likedBy);
@@ -47,7 +50,7 @@ function PostCard({
       const updateLikes = await service.updatePost($id, {
         likes: decreaseLikes,
         likedBy: users.includes(userData.$id)
-          ? users.filter((user) => user !== userData.$id)
+          ? users.filter((user) => user !== currentUser.userData.$id)
           : users,
         title,
         featuredImage,
@@ -63,9 +66,9 @@ function PostCard({
 
       await service.updatePost($id, {
         likes: increaseLikes,
-        likedBy: users.includes(userData.$id)
+        likedBy: users.includes(currentUser.userData.$id)
           ? users
-          : [...users, userData.$id],
+          : [...users, currentUser.userData.$id],
         title,
         featuredImage,
         content,
@@ -85,7 +88,7 @@ function PostCard({
 
           // users.includes(userData.$id) ? setLike(true) : setLike(false);
           post.likedBy.forEach((user) => {
-            if (userData.$id === user && post.likes > 0) {
+            if (currentUser.userData.$id === user && post.likes > 0) {
               // console.log('this user', user);
               // console.log('this userdata id ', userData.$id);
 
@@ -96,7 +99,9 @@ function PostCard({
           });
         }
       } catch (error) {
-        console.log(error);
+        if (currentUser.user.status === true) {
+          throw error;
+        }
       }
     }
 

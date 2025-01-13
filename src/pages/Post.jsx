@@ -13,21 +13,18 @@ export default function Post() {
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
-  // console.log("userdata :", userData);
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   const [imgUrl, setImgUrl] = useState();
 
   useEffect(() => {
-    // console.log("Slug : ", slug);
     if (slug) {
       // TODO : Only call getpost when there is a active user
       service.getPost(slug).then((post) => {
         if (post) {
           setPost(post);
 
-          // console.log("Bucket id : ", conf.appwriteBucketId);
           const url = service.getFileImagePreview(post.featuredImage);
 
           setImgUrl(url);
@@ -40,12 +37,10 @@ export default function Post() {
     }
   }, [slug, navigate]);
 
-  console.log("Individual post : ", post);
 
   const deleteThisPost = () => {
     console.log("Delete func called : ");
     service.deletePost(post.$id).then((status) => {
-      console.log(status);
 
       if (status) {
         service.deleteFile(post.featuredImage);
@@ -55,12 +50,12 @@ export default function Post() {
   };
 
   return post ? (
-    <div className="bg-slate-400 sm:my-20 mt-20  ">
+    <div className="  bg-white sm:my-16 mt-16 w-screen ">
       <Container>
-        <div className="border sm:w-full md:max-w-3xl p-5 bg-slate-400  shadow-slate-800 items-center sm:rounded-xl mx-auto">
+        <div className="  md:max-w-3xl sm:p-5 bg-white  shadow-slate-800 items-center mx-auto">
           {/* Title & Blog's author name */}
-          <div className="flex flex-col gap-6 py-3">
-            <h1 className="text-3xl font-bold ">{post.title}</h1>
+          <div className="flex flex-col gap-6 py-2">
+            <h1 className="text-3xl font-bold mt-5 sm:mt-2">{post.title}</h1>
 
             <div className="w-full ">
               {/* User profile starts */}
@@ -69,7 +64,7 @@ export default function Post() {
                 title={post.userName}
               >
                 <span className="w-7 h-7 rounded-full ">
-                  <img srcset="/assets/userIcon2.png" alt="" />
+                  <img src="/assets/userIcon2.png" alt="" />
                 </span>
                 <h3 className="font-medium text-base hover:underline ">
                   {post.userName}
@@ -80,19 +75,17 @@ export default function Post() {
           </div>
           {/* Title & Blog's author name */}
 
-          <div className="my-2">
+          <div className="my-4">
             {post.featuredImage ? (
               <img
                 src={imgUrl}
                 alt={post.title}
                 className="rounded w-full h-full"
               />
-            ) : (
-              // <p className="text-sm px-5">
-              //   *Sorry the images are not being previewed yet !*
-              // </p>
-              null
-            )}
+            ) : // <p className="text-sm px-5">
+            //   *Sorry the images are not being previewed yet !*
+            // </p>
+            null}
           </div>
 
           <div className="flex flex-col justify-between  w-full h-64 sm:h-96 ">
@@ -154,15 +147,15 @@ export default function Post() {
               </div>
 
               {isAuthor && (
-                <div className="  w-fit float-right flex justify-end gap-3 m-1">
+                <div className=" w-fit float-right flex justify-end gap-3 m-1">
                   <Link to={`/edit-post/${post.$id}`} className="">
-                    <Button bgColor="bg-blue-500" className="">
+                    <Button bgColor="bg-blue-500" className="text-white">
                       Edit
                     </Button>
                   </Link>
 
                   <div className="" onClick={deleteThisPost}>
-                    <Button bgColor="bg-red-600" className="">
+                    <Button bgColor="bg-red-600" className="text-white">
                       Delete
                     </Button>
                   </div>

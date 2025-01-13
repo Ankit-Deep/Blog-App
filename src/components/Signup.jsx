@@ -70,9 +70,9 @@ function Signup() {
 
   return (
     <>
-      <div className="flex items-center justify-center w-full sm:py-10 h-full">
+      <div className="flex items-center justify-center  w-full h-screen">
         <div
-          className={`sm:mx-auto mx-3 w-full max-w-lg bg-gray-300 rounded-xl sm:p-10 px-5 py-10 border border-black/10 `}
+          className={` sm:mx-auto mx-3 w-full max-w-lg bg-[#dbe2eb] rounded-xl sm:p-10 px-5 py-10  `}
         >
           <h2 className="text-center text-2xl font-bold leading-tight my-2">
             Sign up to create an account
@@ -126,12 +126,14 @@ function Signup() {
                 {...register("password", {
                   required: true,
                 })}
-              />  
+              />
 
               {/* <Button children={"Create Account"} type="submit" /> */}
 
               <div className="text-center pt-2">
-                <Button type="submit" className="w-full">
+                <Button type="submit" 
+                bgColor="bg-blue-500"
+                className="sm:px-6 text-white">
                   Create Account
                 </Button>
               </div>

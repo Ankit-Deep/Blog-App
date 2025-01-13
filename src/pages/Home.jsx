@@ -17,7 +17,6 @@ function Home() {
       service.getAllPosts([Query.equal("status", "active")]).then((posts) => {
         if (posts) {
           setAllPosts(posts.documents);
-
         }
       });
     }, []);
@@ -26,7 +25,7 @@ function Home() {
 
   if (allPosts.length === 0) {
     return (
-      <div className="w-full py-5 text-center bg-[#6b7a8f] h-full">
+      <div className="w-full py-5 mt-14 sm:mt-16 bg-white">
         <Container>
           <div className=" h-full">
             <div className="sm:w-1/4 w-full">
@@ -39,16 +38,16 @@ function Home() {
   }
 
   return (
-    <div className="w-full h-full py-5 bg-[#6b7a8f]">
+    <div className="w-full py-5 mt-14 sm:mt-16 bg-white">
       <Container>
-        <h2 className="px-3 py-2 text-2xl font-bold  m-2 rounded-sm shadow-slate-900 inline-block">
+        <h2 className="sm:px-3 py-2 text-2xl font-bold  my-2 rounded-sm shadow-slate-900 inline-block">
           Home
         </h2>
         <div className="flex flex-wrap">
           {allPosts.map((post) => (
             <div
               key={post.$id}
-              className=" p-3 w-full md:w-3/6 lg:w-2/6 min-h-60 md:min-h-60"
+              className="sm:p-2 py-2 w-full md:w-3/6 lg:w-2/6 min-h-60 md:min-h-60"
             >
               {/* {console.log("post : ", post)} */}
 

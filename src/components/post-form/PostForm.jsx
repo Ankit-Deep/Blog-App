@@ -22,7 +22,6 @@ export default function PostForm({ post }) {
   const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.auth.userData);
-  console.log("userdata is ", userData);
 
   const submit = async (data) => {
     // If the user wants to edit a post means there is an existing post which user wants to edit/update
@@ -55,11 +54,9 @@ export default function PostForm({ post }) {
       // : null;
 
       const file = await service.fileUpload(data.image[0]);
-      console.log("file / image upload : ", file);
 
       // Creating a new post
       if (file) {
-        console.log("file data is : ", data);
 
         const fileId = file.$id;
         data.featuredImage = fileId;
@@ -70,7 +67,6 @@ export default function PostForm({ post }) {
           userName: userData.name,
         });
 
-        console.log("\ndbPost is ", dbPost);
         // Navigating the user if dbPost has been successfully done
 
         if (dbPost) {
@@ -81,15 +77,18 @@ export default function PostForm({ post }) {
   };
 
   // Change the slug (if the user enters space than we will replace it with '-' dash/ hyphen )
-  const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string") {
-      return value
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "-");
-    } else return "";
-  }, []);
+  const slugTransform = useCallback(
+    (value) => {
+      if (value && typeof value === "string") {
+        return value
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-zA-Z\d\s]+/g, "-")
+          .replace(/\s/g, "-");
+      } else return "";
+    },
+    [submit, PostForm]
+  );
 
   React.useEffect(() => {
     const subscription = watch((value, { name }) => {
@@ -101,15 +100,15 @@ export default function PostForm({ post }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, [watch, slugTransform, setValue]);
+  }, [watch, slugTransform, setValue, PostForm, submit]);
 
   return (
     <form
       onSubmit={handleSubmit(submit)}
-      className=" flex flex-wrap flex-col bg-slate-400 sm:my-16 mt-11 px-3"
+      className="sm:w-full  flex flex-wrap flex-col bg-[#dbe2eb] sm:my-16 my-14 sm:px-5 px-3 py-5 rounded-md"
     >
       {/* This is the left part of the form */}
-      <h1 className=" text-xl font-medium py-1">Create a new Blog...</h1>
+      <h1 className=" text-2xl font-medium py-2">Create a new Blog...</h1>
       <div className=" w-full rounded-xl flex flex-col md:flex-row gap-2">
         <div className=" md:w-4/6">
           <Input
@@ -159,7 +158,6 @@ export default function PostForm({ post }) {
             {...register("status", { required: true })}
           />
         </div>
-        
       </div>
 
       {/* This is the right part of the form */}
@@ -175,7 +173,7 @@ export default function PostForm({ post }) {
 
         <Button
           type="submit"
-          bgColor={post ? "bg-green-500" : undefined}
+          bgColor={post ? "bg-green-500" : "bg-blue-500"}
           className="w-full"
           hover={post ? "hover:bg-green-600" : "hover:bg-blue-700"}
         >

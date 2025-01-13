@@ -167,7 +167,6 @@ export class Services {
   async fileUpload(file) {
     try {
       return this.storage.createFile(conf.appwriteBucketId, ID.unique(), file);
-      
     } catch (error) {
       throw error;
     }

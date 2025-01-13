@@ -5,6 +5,8 @@ import { login, logout } from "./store/authSlice";
 import { Header, Footer, AuthLayout, Loading } from "./components";
 import { Outlet } from "react-router-dom";
 // import Loading from "./components/index";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -12,25 +14,30 @@ function App() {
 
   const userStatus = useSelector((state) => state.auth.status);
 
+
   useEffect(() => {
+    // if (userStatus) {
     authService
       .getCurrentState()
       .then((userData) => {
-        // console.log("App.jsx userData: ", userData);
         if (userData) {
           dispatch(login(userData));
         }
       })
       .finally(() => setLoading(false));
+    // }
   }, []);
 
   const userData = useSelector((state) => state.auth.userData);
 
   // console.log("App.jsx userData 2: ", userData);
 
+  // const theme = useSelector((state) => state.theme.theme);
+
+
   if (loading) {
     return (
-      <div>
+      <div className="bg-white w-screen  h-screen">
         <h1>Loading...</h1>
         {/* <Loading/> */}
       </div>
@@ -38,17 +45,19 @@ function App() {
   } else
     return (
       <>
-        <div className="min-h-screen h-screen bg-gray-100 text-black flex flex-col content-between">
-          <div className="w-full flex flex-col bg-slate-400 ">
+        {/* <Provider store={store}> */}
+        <div className={`overflow-x-hidden`}>
+          <div className="w-screen  h-screen flex flex-col justify-between items-stretch bg-white">
             <Header />
 
-            <main className="">
+            <main className="min-w-full bg-white">
               <Outlet />
             </main>
 
             <Footer />
           </div>
         </div>
+        {/* </Provider> */}
       </>
     );
 }

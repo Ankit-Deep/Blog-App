@@ -37,13 +37,15 @@ function PostCard({
     setUsers(likedBy);
 
     if (like === true) {
-      setLikesCount((like) => like - 1);
-
-      let decreaseLike = likes - 1;
+      let decreaseLikes;
+      if (likesCount > 0) {
+        setLikesCount((like) => like - 1);
+        decreaseLikes = likes - 1;
+        setLike(false);
+      }
 
       const updateLikes = await service.updatePost($id, {
-        likes: decreaseLike,
-        // likesStatus: false,
+        likes: decreaseLikes,
         likedBy: users.includes(userData.$id)
           ? users.filter((user) => user !== userData.$id)
           : users,
@@ -53,16 +55,14 @@ function PostCard({
         userName,
       });
 
-      setLike(false);
     } else {
       setLike(true);
       setLikesCount((like) => like + 1);
 
-      let increaseLike = likes + 1;
+      let increaseLikes = likes + 1;
 
       await service.updatePost($id, {
-        likes: increaseLike,
-        // likesStatus: true,
+        likes: increaseLikes,
         likedBy: users.includes(userData.$id)
           ? users
           : [...users, userData.$id],
@@ -78,22 +78,22 @@ function PostCard({
     async function fetchPost() {
       try {
         const post = await service.getPost($id);
-        // console.log("post", post);
 
         if (post) {
           setLikesCount(post.likes);
-          // setLike(post.likesStatus);
           setUsers(post.likedBy);
 
           // users.includes(userData.$id) ? setLike(true) : setLike(false);
           post.likedBy.forEach((user) => {
-            if (userData.$id === user) {
+            if (userData.$id === user && post.likes > 0) {
+              // console.log('this user', user);
+              // console.log('this userdata id ', userData.$id);
+
               setLike(true);
             } else {
               setLike(false);
             }
           });
-          // console.log("post", post);
         }
       } catch (error) {
         console.log(error);
@@ -101,12 +101,12 @@ function PostCard({
     }
 
     fetchPost();
-  }, [$id]);
+  }, []);
 
   return (
     <>
       <Link to={`/post/${$id}`} className="">
-        <div className=" w-full h-full bg-[#8191a7] rounded-lg shadow-gray-700 shadow-2xl hover:shadow-2xl hover:shadow-gray-950 flex flex-col gap-3 p-4 hover:p-[20px] duration-200 ">
+        <div className=" w-full h-full px-4 py-5 bg-[#dbe2eb] rounded-lg hover:shadow-2xl hover:shadow-gray-500 flex flex-col gap-4 duration-300 ">
           {/* User profile starts */}
           <div className=" flex items-center gap-2">
             <span className="w-6 h-6 rounded-full ">
@@ -121,7 +121,7 @@ function PostCard({
           </div>
           {/* User profile ends */}
 
-          <div className=" w-full h-full">
+          <div className="top-0 w-full h-full">
             {featuredImage ? (
               <img
                 src={service.getFileImagePreview(featuredImage)}
@@ -134,7 +134,7 @@ function PostCard({
             null}
           </div>
 
-          <div className=" flex flex-col gap-3 sm:px-1 px-[2px] h-full">
+          <div className="top-0 flex flex-col gap-3 sm:px-1 px-[2px] h-full">
             <h2 className="text-xl  font-semibold">{title}</h2>
 
             <p className="">{parse(content)}</p>
@@ -166,7 +166,7 @@ function PostCard({
 
             {/* Save blogs starts */}
 
-            <div className="">
+            {/* <div className="">
               <button
                 type="button"
                 className=""
@@ -182,7 +182,8 @@ function PostCard({
                   alt=""
                 />
               </button>
-            </div>
+            </div> */}
+
             {/* Save blogs ends */}
           </div>
         </div>

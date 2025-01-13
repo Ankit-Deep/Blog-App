@@ -43,7 +43,6 @@ function Header() {
     },
   ];
 
-
   const [showNav, setShowNav] = useState("hidden");
 
   // const showDropDown = () => {
@@ -54,7 +53,7 @@ function Header() {
   return (
     <header className="py-3 top-0 fixed z-10 w-full  shadow bg-[#0d1b2a]">
       <Container>
-        <nav className="flex items-center justify-between text-center max-h-20 mx-5 sm:mx-1">
+        <nav className="flex items-center justify-between text-center max-h-20  sm:mx-1">
           {/* Div for just logo */}
           <div className="md:mx-3">
             <Link to="/">
@@ -79,7 +78,7 @@ function Header() {
                 </li>
               ) : null
             )}
-
+``
             {/* show logout button only if the user is authenticated / logged in*/}
             {authStatus && (
               <li className="inline-block px-5 py-2  duration-200 text-white text-lg hover:px-6 bg-red-500 hover:bg-red-600 rounded-full">

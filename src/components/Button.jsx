@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 function Button( {
     children, // referred as text only
     type = 'button',
-    bgColor = 'bg-blue-600',
-    textColor = 'text-white',
+    bgColor = '',
+    textColor = '',
     hover = '',
     className = '',
     ...props
@@ -17,7 +17,7 @@ function Button( {
 
     return (
       <button
-        className={`visible sm:px-4 px-6 py-2 rounded-lg ${cursorState} ${hover} ${type} ${bgColor} ${textColor} `}
+        className={`visible text-base sm:px-4 px-6 py-2 rounded-lg ${cursorState} hover:${hover} ${type} ${bgColor} ${textColor} ${className}`}
         {...props}
         onClick={buttonClick}
       >

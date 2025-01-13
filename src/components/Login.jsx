@@ -57,12 +57,10 @@ function Login() {
 
   return (
     <>
-      <div className="flex items-center justify-center w-full sm:py-10 py-20 h-full ">
+      <div className="flex items-center justify-center w-full sm:py-10 h-screen ">
         <div
-          className={`mx-3 sm:mx-auto w-full max-w-lg bg-gray-300 rounded-xl sm:p-5 p-4 py-20 border border-black/10 `}
+          className={`sm:mx-auto mx-3 w-full max-w-lg bg-[#dbe2eb] rounded-xl sm:p-5 p-4 py-20  `}
         >
-
-
           <h2 className="text-center text-2xl font-bold leading-tight mb-4">
             Log in to your account
           </h2>
@@ -110,7 +108,8 @@ function Login() {
                 <Button
                   children="Log in"
                   type="submit"
-                  className="w-full text-center p-5"
+                  bgColor="bg-blue-500"
+                  className=" text-center sm:px-7 text-white"
                 />
               </div>
             </div>

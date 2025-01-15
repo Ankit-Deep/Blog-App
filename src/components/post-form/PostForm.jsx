@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Input, Select, Button, RTE } from "../index";
+import { Input, Select, Button, RTE, Loading } from "../index";
 import service from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -22,17 +22,23 @@ export default function PostForm({ post }) {
   const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.auth.userData);
-
+  const [loading, setLoading] = useState(false);
+  
   const submit = async (data) => {
+    setLoading(true);
+    
     // If the user wants to edit a post means there is an existing post which user wants to edit/update
     if (post) {
       // This is the file / image the user wants to update
-      const file = data.image[0]
+      data.image[0]
         ? await service.fileUpload(data.image[0])
-        : null;
+        : await service.fileUpload(null);
 
       // Deleting the old image
-      if (file) {
+      // if (file) {
+      // }
+      
+      if (post.featuredImage !== null) {
         await service.deleteFile(post.featuredImage);
       }
 
@@ -44,38 +50,40 @@ export default function PostForm({ post }) {
       });
 
       if (dbPost) {
+        setLoading(false);
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
       // If the user wants to create a new post / blog:--
-
+      
       // const file = data.image[0]
       //   ? await service.fileUpload(data.image[0])
       // : null;
-
+      
       const file = await service.fileUpload(data.image[0]);
-
+      
       // Creating a new post
       if (file) {
-
+        
         const fileId = file.$id;
         data.featuredImage = fileId;
-
+        
         const dbPost = await service.createPost({
           ...data,
           userId: userData.$id,
           userName: userData.name,
         });
-
+        
         // Navigating the user if dbPost has been successfully done
-
+        
         if (dbPost) {
+          setLoading(false);
           navigate(`/post/${dbPost.$id}`);
         }
       }
     }
   };
-
+  
   // Change the slug (if the user enters space than we will replace it with '-' dash/ hyphen )
   const slugTransform = useCallback(
     (value) => {
@@ -107,6 +115,9 @@ export default function PostForm({ post }) {
       onSubmit={handleSubmit(submit)}
       className="sm:w-full  flex flex-wrap flex-col bg-[#dbe2eb] sm:my-16 my-14 sm:px-5 px-3 py-5 rounded-md"
     >
+
+      {loading && <Loading/>}
+      
       {/* This is the left part of the form */}
       <h1 className=" text-2xl font-medium py-2">Create a new Blog...</h1>
       <div className=" w-full rounded-xl flex flex-col md:flex-row gap-2">
@@ -134,9 +145,10 @@ export default function PostForm({ post }) {
 
         <div className=" md:w-2/6 flex flex-col justify-between gap-2">
           <Input
-            label="Featured Image :"
+            label="* Choose Image * :"
             type="file"
             className=""
+            
             accept="image/png, image/jpg, image/jpeg, image/gif"
             {...register("image")}
           />

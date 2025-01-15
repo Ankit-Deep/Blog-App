@@ -30,9 +30,9 @@ export default function PostForm({ post }) {
     // If the user wants to edit a post means there is an existing post which user wants to edit/update
     if (post) {
       // This is the file / image the user wants to update
-      data.image[0]
-        ? await service.fileUpload(data.image[0])
-        : await service.fileUpload(null);
+      const file = data.image[0]
+        ? await appwriteService.uploadFile(data.image[0])
+        : null;
 
       // Deleting the old image
       // if (file) {
